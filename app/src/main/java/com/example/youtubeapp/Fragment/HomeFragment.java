@@ -16,10 +16,7 @@ import com.google.android.youtube.player.YouTubePlayerFragment;
 import com.google.android.youtube.player.YouTubePlayerSupportFragment;
 import com.google.android.youtube.player.YouTubePlayerView;
 
-public class HomeFragment extends Fragment
-        implements YouTubePlayer.OnInitializedListener {
-
-    final private static String API_KEY = "AIzaSyDdfWaOrUMo1HX3eFyESUfC-S26lTxIyNg";
+public class HomeFragment extends Fragment {
     public static int REQUEST_VIDEO = 123;
     YouTubePlayerView ypvVideo;
     @Override
@@ -31,15 +28,4 @@ public class HomeFragment extends Fragment
         return view;
     }
 
-    @Override
-    public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
-        youTubePlayer.loadVideo("QOdzWAHZ_Og");
-    }
-
-    @Override
-    public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
-        if (youTubeInitializationResult.isUserRecoverableError()) {
-
-        }
-    }
 }
