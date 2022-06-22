@@ -59,6 +59,7 @@ public interface ApiServicePlayList {
             @Query("part") String partReplies,
             @Query("order") String order ,
             @Query("part") String id ,
+            @Query("textFormat") String planText,
             @Query("videoId") String videoId ,
             @Query("key") String key,
             @Query("maxResults" ) String maxResults);

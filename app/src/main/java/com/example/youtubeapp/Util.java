@@ -6,13 +6,22 @@ import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 
+import com.example.youtubeapp.api.ApiServicePlayList;
+import com.example.youtubeapp.model.itemrecycleview.CommentItem;
 import com.example.youtubeapp.model.itemrecycleview.VideoItem;
+import com.example.youtubeapp.model.listcomment.Comment;
+import com.example.youtubeapp.model.listcomment.ItemsComment;
+import com.example.youtubeapp.model.listcomment.RepliesComment;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Date;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Util {
     final public static String API_KEY = "AIzaSyAsaDOu8Oj7aXgXWmYOnemy5kHtsUkVZjU";
@@ -21,13 +30,14 @@ public class Util {
     public static int REQUEST_CODE_VIDEO = 123;
     public static String BUNDLE_EXTRA_OBJECT_ITEM_VIDEO = "extra item video";
     public static String BUNDLE_EXTRA_ITEM_VIDEO = "extra item v video";
-    public static String BUNDLE_EXTRA_OBJECT_ITEM_COMMENT = "extra item comment";
+    public static String BUNDLE_EXTRA_ID_VIDEO = "extra id video";
+    public static String BUNDLE_EXTRA_CMT_COUNT_VIDEO = "extra comment count video";
     public static ArrayList<VideoItem> listVideoItem;
-
+    public static ArrayList<CommentItem> listCmtItem;
     public static String convertViewCount(double viewCount) {
         double view;
         if (viewCount < 1000) {
-            return viewCount + "";
+            return (int)viewCount + "";
         } else if (viewCount < 1000000) {
             view = (double) viewCount / 1000;
             return (double) Math.round(view * 10) / 10 + "K";
@@ -83,5 +93,6 @@ public class Util {
         }
         return days;
     }
+
 
 }

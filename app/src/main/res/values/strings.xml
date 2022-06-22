@@ -11,4 +11,6 @@
     <string name="titile_menu_library">Library</string>
     <string name="tv_comment_name">Bình luận</string>
     <string name="tv_content_rule">Hãy nhớ tôn trọng người dùng khác khi đăng bình luận và tuân thủ Nguyên tắc cộng đồng của chúng tôi</string>
+    <string name="space_line"> • </string>
+    <string name="tv_editor">(editor)</string>
 </resources>

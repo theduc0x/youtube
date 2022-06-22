@@ -57,10 +57,10 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        LinearLayoutManager linearLayoutManager
-                = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
-        RecyclerView.ItemDecoration decoration
-                = new DividerItemDecoration(getActivity(), RecyclerView.VERTICAL);
+        LinearLayoutManager linearLayoutManager =
+                new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
+        RecyclerView.ItemDecoration decoration =
+                new DividerItemDecoration(getActivity(), RecyclerView.VERTICAL);
         rvItemVideo.setLayoutManager(linearLayoutManager);
         rvItemVideo.addItemDecoration(decoration);
         rvItemVideo.setAdapter(adapter);
@@ -85,7 +85,7 @@ public class HomeFragment extends Fragment {
 //                Toast.makeText(getActivity(), "Call Api Success", Toast.LENGTH_SHORT).show();
                 Log.d("abc", response.body().toString());
                 String urlThumbnailVideo = "", titleVideo = "", titleChannel = "",
-                         timeVideo = "", viewCountVideo = "",
+                         timeVideo = "", viewCountVideo = "", commentCount = "",
                         idVideo = "", likeCountVideo = "", descVideo = "",
                         pageToken, idChannel = "", urlLogoChannel = "";
 
@@ -118,12 +118,12 @@ public class HomeFragment extends Fragment {
                         idVideo = listItem.get(i).getId();
                         likeCountVideo = listItem.get(i).getStatistics().getLikeCount();
                         descVideo = listItem.get(i).getSnippet().getDescription();
-
+                        commentCount = listItem.get(i).getStatistics().getCommentCount();
 
                         Util.listVideoItem.add(new VideoItem(urlThumbnailVideo,
                                 urlLogoChannel, titleVideo, timeVideo,
                                 titleChannel, viewCountVideo, idVideo,
-                                likeCountVideo, descVideo, idChannel));
+                                likeCountVideo, descVideo, idChannel, commentCount));
 //                        adapter.notifyItemInserted(i);
                     }
                     Collections.shuffle(Util.listVideoItem);

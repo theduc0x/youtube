@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -78,11 +80,13 @@ public class BottomSheetDialogDescFragment extends BottomSheetDialogFragment {
 
         BottomSheetBehavior bottomSheetBehavior =
                 BottomSheetBehavior.from(((View) viewDialog.getParent()));
-        bottomSheetBehavior.setMaxHeight(maxHeight);
+//        bottomSheetBehavior.setMaxHeight(maxHeight);
         bottomSheetBehavior.setPeekHeight(maxHeight);
         intMain(viewDialog);
         setDataDesc();
-
+        bottomSheetDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL);
+        bottomSheetDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         tbCancel.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -122,7 +126,6 @@ public class BottomSheetDialogDescFragment extends BottomSheetDialogFragment {
         });
     }
     public void getTime(String dateOne) {
-            dateOne = "2022-06-17T13:00:12Z";
             String startDate = dateOne.substring(0, 10);
 
             String days = startDate.substring(8,10);
