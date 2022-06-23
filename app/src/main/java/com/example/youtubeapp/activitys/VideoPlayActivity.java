@@ -1,9 +1,7 @@
 package com.example.youtubeapp.activitys;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -13,7 +11,6 @@ import android.os.Bundle;
 
 import com.example.youtubeapp.R;
 import com.example.youtubeapp.Util;
-import com.example.youtubeapp.fragment.BottomSheetDialogCommentFragment;
 import com.example.youtubeapp.fragment.VideoContainDataFragment;
 import com.example.youtubeapp.fragment.VideoContainYoutubePlayFragment;
 import com.example.youtubeapp.model.itemrecycleview.VideoItem;
@@ -37,6 +34,17 @@ public class VideoPlayActivity extends AppCompatActivity {
 
         youtubePlayFragment.playVideo(idVideo);
     }
+//    public void goToDetailRepliesFragment(CommentItem item) {
+//        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//        DetailRepliesFragment repliesFragment = new DetailRepliesFragment();
+//
+//        Bundle bundle = new Bundle();
+//        bundle.putSerializable(Util.BUNDLE_EXTRA_ITEM_VIDEO_TO_REPLIES, item);
+//        repliesFragment.setArguments(bundle);
+//        transaction.replace(R.id.fl_content_data, repliesFragment);
+//        transaction.addToBackStack("abc123");
+//        transaction.commit();
+//    }
 
     private void addFragmentMain() {
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -50,7 +58,10 @@ public class VideoPlayActivity extends AppCompatActivity {
             idVideo = itemVideo.getIdVideo();
         }
         videoContainDataFragment.setArguments(bundle);
-        transaction.replace(R.id.fl_content_data, videoContainDataFragment);
+        transaction.add(R.id.fl_content_data, videoContainDataFragment);
+
         transaction.commit();
     }
+
+
 }

@@ -2,43 +2,23 @@ package com.example.youtubeapp.model.itemrecycleview;
 
 import com.example.youtubeapp.model.listcomment.RepliesComment;
 
-import java.io.Serializable;
-
-public class CommentItem implements Serializable {
-    private String idComment;
+public class RepliesCommentItem {
     private String textDisplay;
     private String authorName;
     private String authorLogoUrl;
-    private String authorChannelId;
+    private String authorChannelI;
     private int likeCount;
     private String publishedAt;
     private String updateAt;
-    private int totalReplyCount;
-    private RepliesComment repliesComent;
 
-    public CommentItem(String idComment, String textDisplay, String authorName,
-                       String authorLogoUrl, String authorChannelId,
-                       int likeCount, String publishedAt,
-                       String updateAt, int totalReplyCount,
-                       RepliesComment repliesComent) {
-        this.idComment = idComment;
+    public RepliesCommentItem(String textDisplay, String authorName, String authorLogoUrl, String authorChannelI, int likeCount, String publishedAt, String updateAt) {
         this.textDisplay = textDisplay;
         this.authorName = authorName;
         this.authorLogoUrl = authorLogoUrl;
-        this.authorChannelId = authorChannelId;
+        this.authorChannelI = authorChannelI;
         this.likeCount = likeCount;
         this.publishedAt = publishedAt;
         this.updateAt = updateAt;
-        this.totalReplyCount = totalReplyCount;
-        this.repliesComent = repliesComent;
-    }
-
-    public String getIdComment() {
-        return idComment;
-    }
-
-    public void setIdComment(String idComment) {
-        this.idComment = idComment;
     }
 
     public String getTextDisplay() {
@@ -65,12 +45,12 @@ public class CommentItem implements Serializable {
         this.authorLogoUrl = authorLogoUrl;
     }
 
-    public String getAuthorChannelId() {
-        return authorChannelId;
+    public String getAuthorChannelI() {
+        return authorChannelI;
     }
 
-    public void setAuthorChannelId(String authorChannelId) {
-        this.authorChannelId = authorChannelId;
+    public void setAuthorChannelI(String authorChannelI) {
+        this.authorChannelI = authorChannelI;
     }
 
     public int getLikeCount() {
@@ -95,21 +75,5 @@ public class CommentItem implements Serializable {
 
     public void setUpdateAt(String updateAt) {
         this.updateAt = updateAt;
-    }
-
-    public int getTotalReplyCount() {
-        return totalReplyCount;
-    }
-
-    public void setTotalReplyCount(int totalReplyCount) {
-        this.totalReplyCount = totalReplyCount;
-    }
-
-    public RepliesComment getRepliesComent() {
-        return repliesComent;
-    }
-
-    public void setRepliesComent(RepliesComment repliesComent) {
-        this.repliesComent = repliesComent;
     }
 }

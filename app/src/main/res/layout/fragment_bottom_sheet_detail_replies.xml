@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragment.DetailRepliesFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/abl_replies_video"
@@ -92,17 +91,17 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_toRightOf="@id/tv_author_name_replies"
-                android:text="4 tuần trước"/>
+                android:text="4 tuần trước" />
 
             <TextView
                 android:id="@+id/tv_editor_replies"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:layout_marginLeft="5dp"
-                android:visibility="invisible"
+                android:layout_marginTop="10dp"
                 android:layout_toRightOf="@id/tv_date_diff_replies"
-                android:text="@string/tv_editor"/>
+                android:text="@string/tv_editor"
+                android:visibility="invisible" />
 
             <ImageView
                 android:id="@+id/iv_more_select_replies"
@@ -117,11 +116,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_author_name_replies"
-                android:layout_toRightOf="@id/civ_logo_author_replies"
                 android:layout_marginRight="20dp"
-                android:maxLines="5"
-                android:ellipsize="end"
-                android:text="vô tình nghe được ở story facebook của một người bạn và phải mò qua đây nghe bản full vì quá hay"/>
+                android:layout_toRightOf="@id/civ_logo_author_replies"
+                android:text="vô tình nghe được ở story facebook của một người bạn và phải mò qua đây nghe bản full vì quá hay" />
 
             <ImageButton
                 android:id="@+id/ib_like_cmt_replies"
@@ -149,11 +146,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_cmt_content_replies"
-                android:textSize="12dp"
                 android:layout_marginLeft="2dp"
                 android:layout_marginTop="15dp"
                 android:layout_toRightOf="@id/ib_like_cmt_replies"
-                android:text="4,6K" />
+                android:text="4,6K"
+                android:textSize="12dp" />
 
             <ImageButton
                 android:id="@+id/ib_detail_cmt_replies"
@@ -174,8 +171,7 @@
                 android:layout_below="@id/tv_cmt_content_replies"
                 android:textSize="12dp"
                 android:layout_marginTop="15dp"
-                android:layout_marginLeft="2dp"
-                android:text="17"/>
+                android:layout_marginLeft="2dp" />
         </RelativeLayout>
 
         <LinearLayout

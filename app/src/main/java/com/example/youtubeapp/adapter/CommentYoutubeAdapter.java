@@ -27,7 +27,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class CommentYoutubeAdapter extends RecyclerView.Adapter<CommentYoutubeAdapter.CommentViewHolder> {
     private ArrayList<CommentItem> listItemCmt;
     private IItemOnClickCommentListener clickCommentListener;
-    private RepliesComment repliesComment;
 
     public CommentYoutubeAdapter(ArrayList<CommentItem> listItemCmt, IItemOnClickCommentListener clickCommentListener) {
         this.listItemCmt = listItemCmt;
@@ -50,7 +49,7 @@ public class CommentYoutubeAdapter extends RecyclerView.Adapter<CommentYoutubeAd
         holder.rlOpenReplies.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clickCommentListener.onClickItemComment(repliesComment);
+                clickCommentListener.onClickItemComment(item);
             }
         });
     }
@@ -98,9 +97,8 @@ public class CommentYoutubeAdapter extends RecyclerView.Adapter<CommentYoutubeAd
             String commentContent = item.getTextDisplay();
             int likeCountCmt = item.getLikeCount();
             int repliesCountCmt = item.getTotalReplyCount();
-            repliesComment = item.getRepliesComent();
 
-                    Picasso.get().load(authorLogoUrl).into(civLogoAuthor);
+            Picasso.get().load(authorLogoUrl).into(civLogoAuthor);
             tvAuthorName.setText(authorName);
             tvCommentContent.setText(commentContent);
             tvDateDiff.setText(" • " + dateDiff);

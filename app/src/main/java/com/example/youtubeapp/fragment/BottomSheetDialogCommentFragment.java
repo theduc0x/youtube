@@ -6,6 +6,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +18,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,6 +26,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.youtubeapp.R;
 import com.example.youtubeapp.Util;
+import com.example.youtubeapp.activitys.VideoPlayActivity;
 import com.example.youtubeapp.adapter.CommentYoutubeAdapter;
 import com.example.youtubeapp.api.ApiServicePlayList;
 import com.example.youtubeapp.model.itemrecycleview.CommentItem;
@@ -47,6 +51,7 @@ public class BottomSheetDialogCommentFragment extends BottomSheetDialogFragment 
     CommentYoutubeAdapter adapter;
     Toolbar tbCommentVideo;
     ProgressDialog progressDialog;
+    VideoPlayActivity videoPlayActivity;
 
     // Khởi tạo fragment dialog với dữ liệu truyền vào là 1 CommentItem
     public static BottomSheetDialogCommentFragment newInstance(String idVideo, String cmtCount) {
@@ -112,7 +117,7 @@ public class BottomSheetDialogCommentFragment extends BottomSheetDialogFragment 
                         bottomSheetDialog.dismiss();
                         break;
                     case R.id.mn_sort_comment:
-                        Toast.makeText(getContext(), "Đang làm", Toast.LENGTH_SHORT).show();
+                        popupMenu();
                         break;
                 }
                 return false;
@@ -126,6 +131,7 @@ public class BottomSheetDialogCommentFragment extends BottomSheetDialogFragment 
         rvListComment = view.findViewById(R.id.rv_list_comment);
         Util.listCmtItem = new ArrayList<>();
         tbCommentVideo = view.findViewById(R.id.tb_comment_video);
+        videoPlayActivity = (VideoPlayActivity) getActivity();
     }
 
     private void setDataComment() {
@@ -137,17 +143,14 @@ public class BottomSheetDialogCommentFragment extends BottomSheetDialogFragment 
         // Sự kiện click hiển thị list replies
         adapter = new CommentYoutubeAdapter(Util.listCmtItem, new IItemOnClickCommentListener() {
             @Override
-            public void onClickItemComment(RepliesComment repliesComment) {
-
+            public void onClickItemComment(CommentItem commentItem) {
+//                videoPlayActivity.goToDetailRepliesFragment(commentItem);
+                clickOpenReplies(commentItem);
             }
+
         });
-//        if (Util.listCmtItem.size() == 0) {
 
-                callApiComment(idVideoM, "");
-//        } else {
-//            adapter.notifyDataSetChanged();
-//        }
-
+        callApiComment(idVideoM, "", "relevance");
 
         LinearLayoutManager linearLayoutManager =
                 new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
@@ -158,25 +161,25 @@ public class BottomSheetDialogCommentFragment extends BottomSheetDialogFragment 
         rvListComment.setAdapter(adapter);
     }
 
-    private void callApiComment(String id, String nextPageToken) {
+    private void callApiComment(String id, String nextPageToken, String order) {
         progressDialog.show();
         ApiServicePlayList.apiServicePlayList.Comment(
                 nextPageToken,
                 "snippet",
                 "replies",
-                "relevance",
+                order,
                 "id",
                 "plainText",
                 id,
                 Util.API_KEY,
-                "100"
+                "10"
         ).enqueue(new Callback<Comment>() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onResponse(Call<Comment> call, Response<Comment> response) {
                 progressDialog.dismiss();
                 String authorLogoUrl = "", authorName = "", publishAt = "", updateAt = "",
-                        displayContentCmt = "", dateDiff = "", authorIdChannel = "";
+                        displayContentCmt = "", dateDiff = "", authorIdChannel = "", idComment = "";
                 int likeCount = 0, totalRepliesCount = 0;
                 RepliesComment repliesComment;
 
@@ -184,6 +187,7 @@ public class BottomSheetDialogCommentFragment extends BottomSheetDialogFragment 
                 if (comment != null) {
                     ArrayList<ItemsComment> listItem = comment.getItems();
                     for (int i = 0; i < listItem.size(); i++) {
+                        idComment = listItem.get(i).getId();
                         authorLogoUrl = listItem.get(i).getSnippet()
                                 .getTopLevelComment().getSnippet()
                                 .getAuthorProfileImageUrl();
@@ -209,8 +213,12 @@ public class BottomSheetDialogCommentFragment extends BottomSheetDialogFragment 
                         repliesComment = listItem.get(i).getReplies();
                         // Thêm vào list
 
+                        if (order.equals("time")) {
+                            Util.listReplies.clear();
+                            Log.d("abbc", "suc");
+                        }
                         Util.listCmtItem.add(new CommentItem(
-                                displayContentCmt, authorName, authorLogoUrl,
+                                idComment, displayContentCmt, authorName, authorLogoUrl,
                                 authorIdChannel, likeCount, publishAt,
                                 updateAt, totalRepliesCount, repliesComment
                         ));
@@ -224,4 +232,34 @@ public class BottomSheetDialogCommentFragment extends BottomSheetDialogFragment 
             }
         });
     }
+
+    private void clickOpenReplies(CommentItem commentItem) {
+        BottomSheetDialogRepliesFragment dialog =
+                BottomSheetDialogRepliesFragment.newInstance(commentItem);
+        dialog.show(getChildFragmentManager(), dialog.getTag());
+    }
+
+    private void popupMenu() {
+        PopupMenu popupMenu = new PopupMenu(getActivity(), tbCommentVideo, Gravity.RIGHT);
+        popupMenu.getMenuInflater().inflate(R.menu.menu_sort_comment,
+                popupMenu.getMenu());
+
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch(item.getItemId()) {
+                    case R.id.mn_top_cmt:
+                        callApiComment(idVideoM, "", "relevance");
+                        break;
+                    case R.id.mn_new_first:
+
+                        callApiComment(idVideoM, "", "time ");
+                        break;
+                }
+                return false;
+            }
+        });
+        popupMenu.show();
+    }
+
 }

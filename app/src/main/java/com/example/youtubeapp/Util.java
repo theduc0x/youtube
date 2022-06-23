@@ -8,6 +8,7 @@ import androidx.annotation.RequiresApi;
 
 import com.example.youtubeapp.api.ApiServicePlayList;
 import com.example.youtubeapp.model.itemrecycleview.CommentItem;
+import com.example.youtubeapp.model.itemrecycleview.RepliesCommentItem;
 import com.example.youtubeapp.model.itemrecycleview.VideoItem;
 import com.example.youtubeapp.model.listcomment.Comment;
 import com.example.youtubeapp.model.listcomment.ItemsComment;
@@ -29,11 +30,14 @@ public class Util {
     final public static String urlListVideoMostPopular = "https://youtube.googleapis.com/youtube/v3/videos?part=snippet&part=statistics&chart=mostPopular&locale=vn&regionCode=vn&key=AIzaSyDkEdU_hnItFhVO0yDBS758w4FFDIWDuzg&maxResults=50";
     public static int REQUEST_CODE_VIDEO = 123;
     public static String BUNDLE_EXTRA_OBJECT_ITEM_VIDEO = "extra item video";
+    public static String BUNDLE_EXTRA_ITEM_VIDEO_TO_REPLIES = "extra item video replies";
+    public static String BUNDLE_EXTRA_ITEM_VIDEO_TO_REPLIES_INSIDE = "extra item video repliess";
     public static String BUNDLE_EXTRA_ITEM_VIDEO = "extra item v video";
     public static String BUNDLE_EXTRA_ID_VIDEO = "extra id video";
     public static String BUNDLE_EXTRA_CMT_COUNT_VIDEO = "extra comment count video";
-    public static ArrayList<VideoItem> listVideoItem;
-    public static ArrayList<CommentItem> listCmtItem;
+    public static ArrayList<VideoItem> listVideoItem = null;
+    public static ArrayList<CommentItem> listCmtItem = null;
+    public static ArrayList<RepliesCommentItem> listReplies = null;
     public static String convertViewCount(double viewCount) {
         double view;
         if (viewCount < 1000) {

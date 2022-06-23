@@ -80,7 +80,7 @@ public class BottomSheetDialogDescFragment extends BottomSheetDialogFragment {
 
         BottomSheetBehavior bottomSheetBehavior =
                 BottomSheetBehavior.from(((View) viewDialog.getParent()));
-//        bottomSheetBehavior.setMaxHeight(maxHeight);
+        bottomSheetBehavior.setMaxHeight(maxHeight);
         bottomSheetBehavior.setPeekHeight(maxHeight);
         intMain(viewDialog);
         setDataDesc();

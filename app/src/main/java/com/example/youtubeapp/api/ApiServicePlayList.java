@@ -2,6 +2,7 @@ package com.example.youtubeapp.api;
 
 import com.example.youtubeapp.model.infochannel.Channel;
 import com.example.youtubeapp.model.listcomment.Comment;
+import com.example.youtubeapp.model.listreplies.Replies;
 import com.example.youtubeapp.model.listvideohome.ListVideo;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -44,7 +45,7 @@ public interface ApiServicePlayList {
             @Query("key") String key,
             @Query("maxResults" ) String maxResults);
 
-
+    // Channel
     @GET("youtube/v3/channels")
     Call<Channel> infoChannel(@Query("part") String partSnippet ,
                               @Query("part") String partContent ,
@@ -52,6 +53,7 @@ public interface ApiServicePlayList {
                               @Query("id") String idChannel ,
                               @Query("key") String key);
 
+    // Top comment
     @GET("youtube/v3/commentThreads")
     Call<Comment> Comment(
             @Query("pageToken") String pageToken ,
@@ -63,4 +65,15 @@ public interface ApiServicePlayList {
             @Query("videoId") String videoId ,
             @Query("key") String key,
             @Query("maxResults" ) String maxResults);
+
+    // Replies
+    @GET("youtube/v3/comments")
+    Call<Replies> Replies(
+            @Query("pageToken") String pageToken ,
+            @Query("part") String partSnippet ,
+            @Query("maxResults") String maxResults,
+            @Query("parentId") String parentId,
+            @Query("textFormat") String textFomat,
+            @Query("key") String key);
+
 }

@@ -200,6 +200,7 @@ public class VideoContainDataFragment extends Fragment {
             public void onClick(View v) {
                 clickOpenBottomSheetDialogFragment();
             }
+
         });
 
         llCommentGroup.setOnClickListener(new View.OnClickListener() {

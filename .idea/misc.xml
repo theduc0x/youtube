@@ -13,6 +13,7 @@
         <entry key="..\:/Users/ADMIN/AndroidStudioProjects/Tuan4Android/YoutubeApp/app/src/main/res/layout/coor.xml" value="0.2792207792207792" />
         <entry key="..\:/Users/ADMIN/AndroidStudioProjects/Tuan4Android/YoutubeApp/app/src/main/res/layout/fragment_bottom_sheet_comment.xml" value="0.22" />
         <entry key="..\:/Users/ADMIN/AndroidStudioProjects/Tuan4Android/YoutubeApp/app/src/main/res/layout/fragment_bottom_sheet_desc.xml" value="0.22" />
+        <entry key="..\:/Users/ADMIN/AndroidStudioProjects/Tuan4Android/YoutubeApp/app/src/main/res/layout/fragment_bottom_sheet_detail_replies.xml" value="0.20871327254305977" />
         <entry key="..\:/Users/ADMIN/AndroidStudioProjects/Tuan4Android/YoutubeApp/app/src/main/res/layout/fragment_detail_replies.xml" value="0.3282937365010799" />
         <entry key="..\:/Users/ADMIN/AndroidStudioProjects/Tuan4Android/YoutubeApp/app/src/main/res/layout/fragment_explore.xml" value="0.42916666666666664" />
         <entry key="..\:/Users/ADMIN/AndroidStudioProjects/Tuan4Android/YoutubeApp/app/src/main/res/layout/fragment_home.xml" value="0.16259057971014493" />
@@ -22,14 +23,19 @@
         <entry key="..\:/Users/ADMIN/AndroidStudioProjects/Tuan4Android/YoutubeApp/app/src/main/res/layout/fragment_video_contain_data.xml" value="0.32181425485961124" />
         <entry key="..\:/Users/ADMIN/AndroidStudioProjects/Tuan4Android/YoutubeApp/app/src/main/res/layout/fragment_video_contain_youtube_play.xml" value="0.42916666666666664" />
         <entry key="..\:/Users/ADMIN/AndroidStudioProjects/Tuan4Android/YoutubeApp/app/src/main/res/layout/item_comment_video.xml" value="0.33" />
+        <entry key="..\:/Users/ADMIN/AndroidStudioProjects/Tuan4Android/YoutubeApp/app/src/main/res/layout/item_replies_comment_video.xml" value="0.428125" />
         <entry key="..\:/Users/ADMIN/AndroidStudioProjects/Tuan4Android/YoutubeApp/app/src/main/res/layout/item_video_home.xml" value="0.25" />
         <entry key="..\:/Users/ADMIN/AndroidStudioProjects/Tuan4Android/YoutubeApp/app/src/main/res/layout/layout_bottom_sheet_comment.xml" value="0.33" />
         <entry key="..\:/Users/ADMIN/AndroidStudioProjects/Tuan4Android/YoutubeApp/app/src/main/res/layout/layout_bottom_sheet_desc.xml" value="0.338785046728972" />
         <entry key="..\:/Users/ADMIN/AndroidStudioProjects/Tuan4Android/YoutubeApp/app/src/main/res/menu/menu_bottom.xml" value="0.1" />
         <entry key="..\:/Users/ADMIN/AndroidStudioProjects/Tuan4Android/YoutubeApp/app/src/main/res/menu/menu_close_desc.xml" value="0.42153846153846153" />
         <entry key="..\:/Users/ADMIN/AndroidStudioProjects/Tuan4Android/YoutubeApp/app/src/main/res/menu/menu_close_replies.xml" value="0.428125" />
+        <entry key="..\:/Users/ADMIN/AndroidStudioProjects/Tuan4Android/YoutubeApp/app/src/main/res/menu/menu_close_repliess.xml" value="0.23020833333333332" />
         <entry key="..\:/Users/ADMIN/AndroidStudioProjects/Tuan4Android/YoutubeApp/app/src/main/res/menu/menu_comment_select.xml" value="0.42916666666666664" />
         <entry key="..\:/Users/ADMIN/AndroidStudioProjects/Tuan4Android/YoutubeApp/app/src/main/res/menu/menu_play_video_select.xml" value="0.4" />
+        <entry key="..\:/Users/ADMIN/AndroidStudioProjects/Tuan4Android/YoutubeApp/app/src/main/res/menu/menu_sort_cmt.xml" value="0.42916666666666664" />
+        <entry key="..\:/Users/ADMIN/AndroidStudioProjects/Tuan4Android/YoutubeApp/app/src/main/res/menu/menu_sort_cmts.xml" value="0.42916666666666664" />
+        <entry key="..\:/Users/ADMIN/AndroidStudioProjects/Tuan4Android/YoutubeApp/app/src/main/res/menu/menu_sort_comment.xml" value="0.25" />
         <entry key="..\:/Users/ADMIN/AndroidStudioProjects/Tuan4Android/YoutubeApp/app/src/main/res/menu/menu_toolbar.xml" value="0.42916666666666664" />
         <entry key="..\:/Users/ADMIN/AndroidStudioProjects/Tuan4Android/YoutubeApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2335" />
       </map>
