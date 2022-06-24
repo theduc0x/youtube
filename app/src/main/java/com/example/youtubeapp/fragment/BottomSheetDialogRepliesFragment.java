@@ -4,12 +4,14 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,11 +35,13 @@ import com.example.youtubeapp.model.listcomment.Comments;
 import com.example.youtubeapp.model.listcomment.RepliesComment;
 import com.example.youtubeapp.model.listreplies.ItemsR;
 import com.example.youtubeapp.model.listreplies.Replies;
+import com.example.youtubeapp.my_interface.ILoadMore;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.squareup.picasso.Picasso;
 
+import java.security.PublicKey;
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -55,7 +59,8 @@ public class BottomSheetDialogRepliesFragment extends BottomSheetDialogFragment 
     RepliesCommentAdapter adapter;
     Toolbar tbReplies;
     String parentId;
-    ProgressDialog progressDialog;
+    ImageButton ibBackCmt;
+//    String nextPageToken = "";
 
 
     // Khởi tạo fragment dialog với dữ liệu truyền vào là 1 CommentItem
@@ -111,6 +116,13 @@ public class BottomSheetDialogRepliesFragment extends BottomSheetDialogFragment 
         intMain(viewDialog);
         setData();
 
+        ibBackCmt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottomSheetDialog.dismiss();
+            }
+        });
+
         bottomSheetDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL,
                 WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL);
         bottomSheetDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
@@ -121,6 +133,7 @@ public class BottomSheetDialogRepliesFragment extends BottomSheetDialogFragment 
                 switch (item.getItemId()) {
                     case R.id.mn_close_replies:
                         bottomSheetDialog.dismiss();
+
                         break;
                 }
                 return false;
@@ -141,6 +154,7 @@ public class BottomSheetDialogRepliesFragment extends BottomSheetDialogFragment 
         tbReplies = view.findViewById(R.id.tb_replies_video);
         rlOpenKeyboard = view.findViewById(R.id.rl_open_replies_keyboard);
         tvEditor = view.findViewById(R.id.tv_editor_replies);
+        ibBackCmt = view.findViewById(R.id.ib_back_comment);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -161,78 +175,68 @@ public class BottomSheetDialogRepliesFragment extends BottomSheetDialogFragment 
         if (publishAt.equals(updateAt)) {
             tvEditor.setVisibility(View.VISIBLE);
         }
-
-        adapter = new RepliesCommentAdapter(Util.listReplies);
-
-        callApiReplies("", parentId);
-
         LinearLayoutManager linearLayoutManager =
                 new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
         RecyclerView.ItemDecoration decoration =
                 new DividerItemDecoration(getActivity(), RecyclerView.VERTICAL);
+
         rvListReplies.setLayoutManager(linearLayoutManager);
+
+        adapter = new RepliesCommentAdapter(rvListReplies, getActivity(), Util.listReplies);
+        callApiReplies(Util.nextPageToken, parentId, "20");
         rvListReplies.addItemDecoration(decoration);
         rvListReplies.setAdapter(adapter);
+
+        adapter.setLoadMore(new ILoadMore() {
+            @Override
+            public void onLoadMore() {
+                String s = Util.nextPageToken;
+                int totalR = itemR.getTotalReplyCount();
+                Log.d("abccc", itemR.getTotalReplyCount() + "");
+                if (Util.listReplies.size() <= totalR) {
+                    Util.listReplies.add(null);
+                    adapter.notifyItemInserted(Util.listReplies.size() - 1);
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Util.listReplies.remove(Util.listReplies.size() - 1);
+                            adapter.notifyItemRemoved(Util.listReplies.size());
+                            callApiRepliess(Util.nextPageToken, parentId, "5");
+                            int index = Util.listReplies.size();
+                            int end = index + 5;
+                            for (int i = index ; i < end; i++) {
+                                adapter.notifyItemInserted(i);
+                            }
+                            Log.d("abcccc", s + "");
+                            adapter.setLoaded();
+                        }
+                    }, 1000);
+                } else {
+                    Log.d("abccc", "Success");
+                }
+            }
+        });
     }
 
-    // thêm các dữ liệu vào list Replies
-//    private void addListReplies(CommentItem listItem) {
-//        ArrayList<Comments> listCommentRep = new ArrayList<Comments>();
-//        RepliesComment repliesComment = null;
-//        String authorLogoUrl = "", authorName = "", publishAt = "", updateAt = "",
-//                displayContentCmt = "", dateDiff = "", authorIdChannel = "";
-//        int likeCount = 0;
-//
-//        repliesComment = listItem.getRepliesComent();
-//        if (repliesComment == null) {
-//            return;
-//        }
-//        listCommentRep = repliesComment.getComments();
-//        for (int i = 0; i < listCommentRep.size(); i++) {
-//            authorLogoUrl = listCommentRep.get(i).getSnippet()
-//                    .getAuthorProfileImageUrl();
-//            authorName = listCommentRep.get(i).getSnippet()
-//                    .getAuthorDisplayName();
-//            publishAt = listCommentRep.get(i).getSnippet()
-//                    .getPublishedAt();
-//            updateAt = listCommentRep.get(i).getSnippet()
-//                    .getUpdatedAt();
-//            authorIdChannel = listCommentRep.get(i).getSnippet()
-//                    .getAuthorChannelId().getValue();
-//            displayContentCmt = listCommentRep.get(i).getSnippet()
-//                    .getTextDisplay();
-//            likeCount = listCommentRep.get(i).getSnippet()
-//                    .getLikeCount();
-//
-//            Util.listReplies.add(new RepliesCommentItem(
-//                    displayContentCmt, authorName, authorLogoUrl,
-//                    authorIdChannel, likeCount, publishAt, updateAt
-//            ));
-//            adapter.notifyItemInserted(i);
-//        }
-//
-//    }
-
-    private void callApiReplies(String nextPageToken, String parentId) {
+    public void callApiReplies(String nextPageToken, String parentId, String maxResults) {
         ApiServicePlayList.apiServicePlayList.Replies(
                 nextPageToken,
                 "snippet",
-                "100",
+                maxResults,
                 parentId,
                 "plainText",
                 Util.API_KEY
         ).enqueue(new Callback<Replies>() {
+
             @Override
             public void onResponse(Call<Replies> call, Response<Replies> response) {
                 Replies replies = null;
-                Log.d("abbb", "Success");
-                Log.d("abccc", parentId);
-                Log.d("abbc", response.body().toString());
                 String authorLogoUrl = "", authorName = "", publishAt = "", updateAt = "",
                         displayContentCmt = "", authorIdChannel = "";
                 int likeCount = 0;
-
+                Util.listCmtItem.clear();
                 replies = response.body();
+                Util.nextPageToken = replies.getNextPageToken();
                 if (replies != null) {
                     ArrayList<ItemsR> listItem = replies.getItems();
                     for (int i = 0; i < listItem.size(); i++) {
@@ -249,20 +253,75 @@ public class BottomSheetDialogRepliesFragment extends BottomSheetDialogFragment 
                                 .getTextDisplay();
                         likeCount = listItem.get(i).getSnippet()
                                 .getLikeCount();
-
                         Util.listReplies.add(new RepliesCommentItem(
                                 displayContentCmt, authorName, authorLogoUrl,
                                 authorIdChannel, likeCount, publishAt, updateAt
                         ));
                         adapter.notifyItemInserted(i);
                     }
+//                    adapter.notifyDataSetChanged();
                 }
 
             }
+
             @Override
             public void onFailure(Call<Replies> call, Throwable t) {
 
             }
         });
     }
+
+
+    public void callApiRepliess(String nextPageToken, String parentId, String maxResults) {
+        ApiServicePlayList.apiServicePlayList.Replies(
+                nextPageToken,
+                "snippet",
+                maxResults,
+                parentId,
+                "plainText",
+                Util.API_KEY
+        ).enqueue(new Callback<Replies>() {
+
+            @Override
+            public void onResponse(Call<Replies> call, Response<Replies> response) {
+                Replies replies = null;
+                String authorLogoUrl = "", authorName = "", publishAt = "", updateAt = "",
+                        displayContentCmt = "", authorIdChannel = "";
+                int likeCount = 0;
+                replies = response.body();
+                Util.nextPageToken = replies.getNextPageToken();
+                if (replies != null) {
+                    ArrayList<ItemsR> listItem = replies.getItems();
+                    for (int i = 0; i < listItem.size(); i++) {
+                        authorLogoUrl = listItem.get(i).getSnippet().getAuthorProfileImageUrl();
+                        authorName = listItem.get(i).getSnippet()
+                                .getAuthorDisplayName();
+                        publishAt = listItem.get(i).getSnippet()
+                                .getPublishedAt();
+                        updateAt = listItem.get(i).getSnippet()
+                                .getUpdatedAt();
+                        authorIdChannel = listItem.get(i).getSnippet()
+                                .getAuthorChannelId().getValue();
+                        displayContentCmt = listItem.get(i).getSnippet()
+                                .getTextDisplay();
+                        likeCount = listItem.get(i).getSnippet()
+                                .getLikeCount();
+                        Util.listReplies.add(new RepliesCommentItem(
+                                displayContentCmt, authorName, authorLogoUrl,
+                                authorIdChannel, likeCount, publishAt, updateAt
+                        ));
+
+                    }
+//                    adapter.notifyDataSetChanged();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Replies> call, Throwable t) {
+
+            }
+        });
+    }
+
 }

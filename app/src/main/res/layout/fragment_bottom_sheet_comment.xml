@@ -89,6 +89,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginLeft="5dp"
+                android:background="@null"
                 android:textSize="15dp"
                 android:hint="Viết bình luận..."/>
         </LinearLayout>

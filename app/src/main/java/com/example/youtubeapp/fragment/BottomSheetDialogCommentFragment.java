@@ -172,7 +172,7 @@ public class BottomSheetDialogCommentFragment extends BottomSheetDialogFragment 
                 "plainText",
                 id,
                 Util.API_KEY,
-                "10"
+                "100"
         ).enqueue(new Callback<Comment>() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
@@ -213,10 +213,6 @@ public class BottomSheetDialogCommentFragment extends BottomSheetDialogFragment 
                         repliesComment = listItem.get(i).getReplies();
                         // Thêm vào list
 
-                        if (order.equals("time")) {
-                            Util.listReplies.clear();
-                            Log.d("abbc", "suc");
-                        }
                         Util.listCmtItem.add(new CommentItem(
                                 idComment, displayContentCmt, authorName, authorLogoUrl,
                                 authorIdChannel, likeCount, publishAt,
@@ -243,17 +239,20 @@ public class BottomSheetDialogCommentFragment extends BottomSheetDialogFragment 
         PopupMenu popupMenu = new PopupMenu(getActivity(), tbCommentVideo, Gravity.RIGHT);
         popupMenu.getMenuInflater().inflate(R.menu.menu_sort_comment,
                 popupMenu.getMenu());
-
+        // Gọi lại 1 hàm setData trong adapter
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch(item.getItemId()) {
                     case R.id.mn_top_cmt:
+                        Util.listCmtItem = new ArrayList<>();
                         callApiComment(idVideoM, "", "relevance");
+                        adapter.setData(Util.listCmtItem);
                         break;
                     case R.id.mn_new_first:
-
-                        callApiComment(idVideoM, "", "time ");
+                        Util.listCmtItem = new ArrayList<>();
+                        callApiComment(idVideoM, "", "time");
+                        adapter.setData(Util.listCmtItem);
                         break;
                 }
                 return false;

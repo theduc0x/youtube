@@ -38,6 +38,10 @@ public class Util {
     public static ArrayList<VideoItem> listVideoItem = null;
     public static ArrayList<CommentItem> listCmtItem = null;
     public static ArrayList<RepliesCommentItem> listReplies = null;
+    public static String nextPageToken = "";
+
+    public static final int VIEW_TYPE_ITEM = 0, VIEW_TYPE_LOADING = 1;
+
     public static String convertViewCount(double viewCount) {
         double view;
         if (viewCount < 1000) {

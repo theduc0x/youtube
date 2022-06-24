@@ -33,6 +33,11 @@ public class CommentYoutubeAdapter extends RecyclerView.Adapter<CommentYoutubeAd
         this.clickCommentListener = clickCommentListener;
     }
 
+    public void setData(ArrayList<CommentItem> listItemCmt) {
+        this.listItemCmt = listItemCmt;
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public CommentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

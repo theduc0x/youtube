@@ -4,6 +4,7 @@ import com.example.youtubeapp.model.infochannel.Channel;
 import com.example.youtubeapp.model.listcomment.Comment;
 import com.example.youtubeapp.model.listreplies.Replies;
 import com.example.youtubeapp.model.listvideohome.ListVideo;
+import com.example.youtubeapp.model.listvideorelated.RelatedVideo;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -76,4 +77,13 @@ public interface ApiServicePlayList {
             @Query("textFormat") String textFomat,
             @Query("key") String key);
 
+    // Related Video Id
+    @GET("youtube/v3/search")
+    Call<RelatedVideo> Related_call(
+            @Query("pageToken") String pageToken ,
+            @Query("part") String partSnippet ,
+            @Query("relatedToVideoId") String relatedId,
+            @Query("type") String typeVideo,
+            @Query("key") String key,
+            @Query("maxResults") String maxResults);
 }
