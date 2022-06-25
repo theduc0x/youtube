@@ -23,6 +23,7 @@ public class RelatedVideo {
         return items;
     }
 
+
     public void setItems(ArrayList<ItemsRelated> items) {
         this.items = items;
     }

@@ -183,39 +183,39 @@ public class BottomSheetDialogRepliesFragment extends BottomSheetDialogFragment 
         rvListReplies.setLayoutManager(linearLayoutManager);
 
         adapter = new RepliesCommentAdapter(rvListReplies, getActivity(), Util.listReplies);
-        callApiReplies(Util.nextPageToken, parentId, "20");
+        callApiReplies(Util.nextPageToken, parentId, "10");
         rvListReplies.addItemDecoration(decoration);
         rvListReplies.setAdapter(adapter);
 
-        adapter.setLoadMore(new ILoadMore() {
-            @Override
-            public void onLoadMore() {
-                String s = Util.nextPageToken;
-                int totalR = itemR.getTotalReplyCount();
-                Log.d("abccc", itemR.getTotalReplyCount() + "");
-                if (Util.listReplies.size() <= totalR) {
-                    Util.listReplies.add(null);
-                    adapter.notifyItemInserted(Util.listReplies.size() - 1);
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            Util.listReplies.remove(Util.listReplies.size() - 1);
-                            adapter.notifyItemRemoved(Util.listReplies.size());
-                            callApiRepliess(Util.nextPageToken, parentId, "5");
-                            int index = Util.listReplies.size();
-                            int end = index + 5;
-                            for (int i = index ; i < end; i++) {
-                                adapter.notifyItemInserted(i);
-                            }
-                            Log.d("abcccc", s + "");
-                            adapter.setLoaded();
-                        }
-                    }, 1000);
-                } else {
-                    Log.d("abccc", "Success");
-                }
-            }
-        });
+//        adapter.setLoadMore(new ILoadMore() {
+//            @Override
+//            public void onLoadMore() {
+//                String s = Util.nextPageToken;
+//                int totalR = itemR.getTotalReplyCount();
+//                Log.d("abccc", itemR.getTotalReplyCount() + "");
+//                if (Util.listReplies.size() <= totalR) {
+//                    Util.listReplies.add(null);
+//                    adapter.notifyItemInserted(Util.listReplies.size() - 1);
+//                    new Handler().postDelayed(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            Util.listReplies.remove(Util.listReplies.size() - 1);
+//                            adapter.notifyItemRemoved(Util.listReplies.size());
+//                            callApiRepliess(Util.nextPageToken, parentId, "5");
+//                            int index = Util.listReplies.size();
+//                            int end = index + 5;
+//                            for (int i = index ; i < end; i++) {
+//                                adapter.notifyItemInserted(i);
+//                            }
+//                            Log.d("abcccc", s + "");
+//                            adapter.setLoaded();
+//                        }
+//                    }, 1000);
+//                } else {
+//                    Log.d("abccc", "Success");
+//                }
+//            }
+//        });
     }
 
     public void callApiReplies(String nextPageToken, String parentId, String maxResults) {

@@ -27,6 +27,7 @@ public class VideoPlayActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_play);
         addFragmentMain();
+//        addFragmentRelated();
 
         VideoContainYoutubePlayFragment youtubePlayFragment =
                 (VideoContainYoutubePlayFragment) getSupportFragmentManager()
@@ -58,7 +59,24 @@ public class VideoPlayActivity extends AppCompatActivity {
             idVideo = itemVideo.getIdVideo();
         }
         videoContainDataFragment.setArguments(bundle);
-        transaction.add(R.id.fl_content_data, videoContainDataFragment);
+        transaction.replace(R.id.fl_content_data, videoContainDataFragment);
+
+        transaction.commit();
+    }
+
+    private void addFragmentRelated() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        VideoContainDataFragment videoContainDataFragment = new VideoContainDataFragment();
+        Intent getVideoInfo = getIntent();
+        Bundle bundle = getVideoInfo.getExtras();
+        if (bundle != null) {
+            itemVideo =
+                    (VideoItem) bundle.getSerializable(Util.BUNDLE_EXTRA_OBJECT_ITEM_VIDEO_FROM_RELATED);
+            idVideo = itemVideo.getIdVideo();
+        }
+        videoContainDataFragment.setArguments(bundle);
+        transaction.replace(R.id.fl_content_data, videoContainDataFragment);
 
         transaction.commit();
     }

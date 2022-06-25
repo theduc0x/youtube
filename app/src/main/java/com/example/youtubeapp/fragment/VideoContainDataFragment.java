@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
@@ -59,6 +60,7 @@ public class VideoContainDataFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_video_contain_data, container, false);
         initView(view);
         setData();
+        addFragmentRelatedVideo();
         return view;
     }
     // Api lấy thông tin channel, ở đây chỉ lấy ảnh của channel
@@ -184,8 +186,8 @@ public class VideoContainDataFragment extends Fragment {
         tvTitleChannelVideo.setText(titleChannel);
         tvViewVideoPlay.setText(viewCount + " views • ");
         tvTimeVideoPlay.setText(dateDayDiff);
+//        tvCommentCount.setText(Util.convertViewCount(Double.parseDouble(commentCount)));
         tvCommentCount.setText(Util.convertViewCount(Double.parseDouble(commentCount)));
-
         if (likeCount == null) {
             likeCount = "";
             bnvOption.getMenu().findItem(R.id.mn_like).setTitle("Like");
@@ -211,7 +213,7 @@ public class VideoContainDataFragment extends Fragment {
 
         });
     }
-
+    // Mở số comment
     private void clickOpenCommentDialogFragment() {
         BottomSheetDialogCommentFragment dialog =
                 BottomSheetDialogCommentFragment.newInstance(idVideo, commentCount);
@@ -226,5 +228,16 @@ public class VideoContainDataFragment extends Fragment {
         bottomSheetDialogDescFragment.show(getChildFragmentManager(),
                 bottomSheetDialogDescFragment.getTag());
 
+    }
+    // Add thêm phần video liên quan
+    private void addFragmentRelatedVideo() {
+        FragmentManager fragmentManager = getChildFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        RelatedToVideoFragment relatedToVideoFragment = new RelatedToVideoFragment();
+        Bundle bundleReceive = getArguments();
+        relatedToVideoFragment.setArguments(bundleReceive);
+
+        transaction.add(R.id.fl_related_video, relatedToVideoFragment);
+        transaction.commit();
     }
 }

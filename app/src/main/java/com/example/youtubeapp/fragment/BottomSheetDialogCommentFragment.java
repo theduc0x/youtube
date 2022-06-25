@@ -172,7 +172,7 @@ public class BottomSheetDialogCommentFragment extends BottomSheetDialogFragment 
                 "plainText",
                 id,
                 Util.API_KEY,
-                "100"
+                "10"
         ).enqueue(new Callback<Comment>() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override

@@ -16,7 +16,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.youtubeapp.R;
 import com.example.youtubeapp.Util;
+import com.example.youtubeapp.api.ApiServicePlayList;
+import com.example.youtubeapp.model.detailvideo.DetailVideo;
+import com.example.youtubeapp.model.detailvideo.ItemVideo;
 import com.example.youtubeapp.model.itemrecycleview.VideoItem;
+import com.example.youtubeapp.model.listvideohome.ListVideo;
+import com.example.youtubeapp.model.listvideorelated.RelatedVideo;
 import com.example.youtubeapp.my_interface.IItemOnClickVideoListener;
 import com.example.youtubeapp.my_interface.ILoadMore;
 import com.squareup.picasso.Picasso;
@@ -24,6 +29,9 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 class Loading2ViewHolder extends RecyclerView.ViewHolder {
     public ProgressBar progressBar;
@@ -50,13 +58,15 @@ class ItemViewHolder extends RecyclerView.ViewHolder {
         tvTimeVideo = itemView.findViewById(R.id.tv_time_video);
         clItemClick = itemView.findViewById(R.id.cl_item_click);
     }
+
+
 }
 
 public class RelatedVideoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final int VIEW_TYPE_ITEM = 0, VIEW_TYPE_LOADING = 1;
     ILoadMore loadMore;
     boolean isLoading;
-    ArrayList<VideoItem>  items;
+    ArrayList<VideoItem> items;
     int visibleThreshold = 5;
     int lastVisibleItem, totalItemCount;
     private IItemOnClickVideoListener itemOnClickVideoListener;
@@ -126,12 +136,14 @@ public class RelatedVideoAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             String idChannel = item.getIdChannel();
             String idVideo = item.getIdVideo();
 
+            callApiDetailVideo(idVideo, viewHolder, item);
+
             Picasso.get().load(urlThumbnailVideo).into(viewHolder.ivItemVideo);
             viewHolder.tvTitleVideo.setText(titleVideo);
             viewHolder.tvTitleChannel.setText(titleChannel);
             Picasso.get().load(urlLogoChannel).into(viewHolder.civLogoChannel);
             viewHolder.tvTimeVideo.setText(dateDayDiff);
-            viewHolder.tvViewCountVideo.setText( "• "+ viewCountVideo + " views •");
+
             viewHolder.clItemClick.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -140,7 +152,7 @@ public class RelatedVideoAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             });
 
 
-        } else if(holder instanceof Loading2ViewHolder) {
+        } else if (holder instanceof Loading2ViewHolder) {
             Loading2ViewHolder loading2ViewHolder = (Loading2ViewHolder) holder;
             loading2ViewHolder.progressBar.setIndeterminate(true);
         }
@@ -153,5 +165,44 @@ public class RelatedVideoAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     public void setLoaded() {
         isLoading = false;
+    }
+
+    private void callApiDetailVideo(String idVideo, ItemViewHolder holder, VideoItem item) {
+        ApiServicePlayList.apiServicePlayList.detailVideo(
+                "snippet",
+                "statistics",
+                idVideo,
+                Util.API_KEY
+        ).enqueue(new Callback<DetailVideo>() {
+            @Override
+            public void onResponse(Call<DetailVideo> call, Response<DetailVideo> response) {
+                String urlThumbnailVideo = "", titleVideo = "", titleChannel = "",
+                        timeVideo = "", viewCountVideo = "", commentCount = "",
+                        idVideo = "", likeCountVideo = "", descVideo = "",
+                        pageToken = "", idChannel = "", urlLogoChannel = "";
+
+                DetailVideo detailVideo = response.body();
+                if (detailVideo != null) {
+                    ArrayList<ItemVideo> listItem = detailVideo.getItems();
+
+                    viewCountVideo = listItem.get(0).getStatistics().getViewCount();
+                    item.setViewCountVideo(Util.convertViewCount(Double.parseDouble(viewCountVideo)));
+                    holder.tvViewCountVideo
+                            .setText("• " + Util.convertViewCount(Double.parseDouble(viewCountVideo)) + " views •");
+                    commentCount = listItem.get(0).getStatistics().getCommentCount();
+                    item.setCommentCount(commentCount);
+
+                    likeCountVideo = listItem.get(0).getStatistics().getLikeCount();
+                    item.setLikeCountVideo(likeCountVideo);
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DetailVideo> call, Throwable t) {
+
+            }
+        });
+
     }
 }

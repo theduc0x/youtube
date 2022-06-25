@@ -1,5 +1,6 @@
 package com.example.youtubeapp.api;
 
+import com.example.youtubeapp.model.detailvideo.DetailVideo;
 import com.example.youtubeapp.model.infochannel.Channel;
 import com.example.youtubeapp.model.listcomment.Comment;
 import com.example.youtubeapp.model.listreplies.Replies;
@@ -45,6 +46,14 @@ public interface ApiServicePlayList {
             @Query("regionCode") String regionCode ,
             @Query("key") String key,
             @Query("maxResults" ) String maxResults);
+
+    // detail Video
+    @GET("youtube/v3/videos")
+    Call<DetailVideo> detailVideo(
+            @Query("part") String partSnippet ,
+            @Query("part") String partStatic ,
+            @Query("id") String idVideo ,
+            @Query("key") String key);
 
     // Channel
     @GET("youtube/v3/channels")

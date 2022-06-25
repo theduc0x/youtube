@@ -36,6 +36,7 @@ public class HomeFragment extends Fragment {
     private RecyclerView rvItemVideo;;
     public static VideoYoutubeAdapter adapter;
     public int a = 1;
+    public static String urlLogooo;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -83,31 +84,42 @@ public class HomeFragment extends Fragment {
             @Override
             public void onResponse(Call<ListVideo> call, Response<ListVideo> response) {
 //                Toast.makeText(getActivity(), "Call Api Success", Toast.LENGTH_SHORT).show();
-                Log.d("abc", response.body().toString());
+//                Log.d("abc", response.body().toString());
                 String urlThumbnailVideo = "", titleVideo = "", titleChannel = "",
                          timeVideo = "", viewCountVideo = "", commentCount = "",
                         idVideo = "", likeCountVideo = "", descVideo = "",
-                        pageToken, idChannel = "", urlLogoChannel = "";
+                        pageToken = "", idChannel = "", urlLogoChannel = "";
+
 
                 ListVideo listVideo = response.body();
-                pageToken = listVideo.getNextPageToken();
                 // Nếu json không rỗng thì ta sẽ add vào list
                 if (listVideo != null) {
+                    pageToken = listVideo.getNextPageToken();
                     ArrayList<Items> listItem = listVideo.getItems();
                     for (int i = 0; i < listItem.size(); i++) {
 
-                        urlThumbnailVideo = listItem.get(i)
-                                .getSnippet().getThumbnails()
-                                .getHigh().getUrl();
-
+                        if (listItem.get(i).getSnippet().getThumbnails().getMaxres() != null) {
+                            urlThumbnailVideo = listItem.get(i)
+                                    .getSnippet().getThumbnails()
+                                    .getMaxres().getUrl();
+                        }else if (listItem.get(i).getSnippet().getThumbnails().getStandard() != null) {
+                            urlThumbnailVideo = listItem.get(i)
+                                    .getSnippet().getThumbnails()
+                                    .getStandard().getUrl();
+                        } else {
+                            urlThumbnailVideo = listItem.get(i)
+                                    .getSnippet().getThumbnails()
+                                    .getHigh().getUrl();
+                        }
+                        Log.d("anhdep", urlThumbnailVideo);
                         titleVideo = listItem.get(i).getSnippet().getTitle();
                         titleChannel = listItem.get(i).getSnippet().getChannelTitle();
                         idChannel = listItem.get(i).getSnippet().getChannelId();
 //                        callApiChannel(idChannel , i);
 
-                        urlLogoChannel = listItem.get(i)
-                                .getSnippet().getThumbnails()
-                                .getHigh().getUrl();
+                        urlLogoChannel = "";
+                        idVideo = listItem.get(i).getId();
+
                         timeVideo = listItem.get(i).getSnippet().getPublishedAt();
 //                        String dateDayDiff = Util.getTime(timeVideo);
 
@@ -115,26 +127,28 @@ public class HomeFragment extends Fragment {
                         double viewCount = Double.parseDouble(viewCountVideo);
                         viewCountVideo = Util.convertViewCount(viewCount);
 
-                        idVideo = listItem.get(i).getId();
+
                         likeCountVideo = listItem.get(i).getStatistics().getLikeCount();
                         descVideo = listItem.get(i).getSnippet().getDescription();
                         commentCount = listItem.get(i).getStatistics().getCommentCount();
 
+
                         Util.listVideoItem.add(new VideoItem(urlThumbnailVideo,
-                                urlLogoChannel, titleVideo, timeVideo,
+                                urlLogooo, titleVideo, timeVideo,
                                 titleChannel, viewCountVideo, idVideo,
                                 likeCountVideo, descVideo, idChannel, commentCount));
 //                        adapter.notifyItemInserted(i);
                     }
                     Collections.shuffle(Util.listVideoItem);
                     adapter.notifyDataSetChanged();
+
                 }
                 // Gọi lại 4 lần cho đủ 200 video
-                a++;
-                if (a > 4) {
-                    return;
-                }
-                callApiPlaylist(pageToken);
+//                a++;
+//                if (a > 4) {
+//                    return;
+//                }
+//                callApiPlaylist(pageToken);
             }
 
             // Nếu lỗi sẽ thông báo lỗi
@@ -151,4 +165,34 @@ public class HomeFragment extends Fragment {
 //        rvItemVideo.scrollToPosition(0);
         rvItemVideo.smoothScrollToPosition(0);
     }
+
+//
+//    String urlLogoo = "";
+//    private void callApiChannel(String id) {
+//        ApiServicePlayList.apiServicePlayList.infoChannel(
+//                "snippet",
+//                "contentDetails",
+//                "statistics",
+//                id,
+//                Util.API_KEY
+//        ).enqueue(new Callback<Channel>() {
+//            @Override
+//            public void onResponse(Call<Channel> call, Response<Channel> response) {
+////                Toast.makeText(VideoPlayActivity.this, "Call api", Toast.LENGTH_SHORT).show();
+//                Channel channel = response.body();
+//                String urlLogo = "";
+//                if (channel != null) {
+//                    ArrayList<Itemss> listItem = channel.getItems();
+//                    String urlLogooo = listItem.get(0).getSnippet().getThumbnails().getMedium().getUrl();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Channel> call, Throwable t) {
+////                Toast.makeText(VideoPlayActivity.this,
+////                        "Call Api Error", Toast.LENGTH_SHORT).show();
+//                Log.d("ab", t.toString());
+//            }
+//        });
+//    }
 }

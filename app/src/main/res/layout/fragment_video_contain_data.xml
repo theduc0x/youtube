@@ -93,7 +93,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="1px"
+        android:layout_height="2px"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="15.1dp"
@@ -196,7 +196,7 @@
 
             <TextView
                 android:id="@+id/tv_comment_count_video"
-                android:layout_width="match_parent"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/tv_name_comment_count_video"
                 android:text="52" />
@@ -247,11 +247,10 @@
         android:orientation="vertical"
         android:background="@color/grey"/>
 
-    <fragment
-        android:id="@+id/fm_related_video"
+    <FrameLayout
+        android:id="@+id/fl_related_video"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:name="com.example.youtubeapp.fragment.RelatedToVideoFragment"/>
+        android:layout_height="wrap_content" />
 
 </LinearLayout>
 
