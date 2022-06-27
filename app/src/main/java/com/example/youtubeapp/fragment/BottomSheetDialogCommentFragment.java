@@ -6,14 +6,12 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -163,7 +161,7 @@ public class BottomSheetDialogCommentFragment extends BottomSheetDialogFragment 
 
     private void callApiComment(String id, String nextPageToken, String order) {
         progressDialog.show();
-        ApiServicePlayList.apiServicePlayList.Comment(
+        ApiServicePlayList.apiServicePlayList.comment(
                 nextPageToken,
                 "snippet",
                 "replies",

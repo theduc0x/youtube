@@ -57,15 +57,27 @@ public interface ApiServicePlayList {
 
     // Channel
     @GET("youtube/v3/channels")
-    Call<Channel> infoChannel(@Query("part") String partSnippet ,
-                              @Query("part") String partContent ,
-                              @Query("part") String partStatic ,
-                              @Query("id") String idChannel ,
-                              @Query("key") String key);
+    Call<Channel> infoChannel(
+            @Query("part") String partSnippet ,
+            @Query("part") String partContent ,
+            @Query("part") String partStatic ,
+            @Query("id") String idChannel ,
+            @Query("key") String key);
+
+    // Full thông tin channel
+    @GET("youtube/v3/channels")
+    Call<Channel> infoChannelFull(
+            @Query("part") String partContent ,
+            @Query("part") String partSnippet ,
+            @Query("part") String partStatic ,
+            @Query("part") String partTopicDetails,
+            @Query("part") String partBrand ,
+            @Query("id") String idChannel ,
+            @Query("key") String key);
 
     // Top comment
     @GET("youtube/v3/commentThreads")
-    Call<Comment> Comment(
+    Call<Comment> comment(
             @Query("pageToken") String pageToken ,
             @Query("part") String partSnippet ,
             @Query("part") String partReplies,
@@ -78,7 +90,7 @@ public interface ApiServicePlayList {
 
     // Replies
     @GET("youtube/v3/comments")
-    Call<Replies> Replies(
+    Call<Replies> replies(
             @Query("pageToken") String pageToken ,
             @Query("part") String partSnippet ,
             @Query("maxResults") String maxResults,
@@ -88,11 +100,21 @@ public interface ApiServicePlayList {
 
     // Related Video Id
     @GET("youtube/v3/search")
-    Call<RelatedVideo> Related_call(
+    Call<RelatedVideo> relatedCall(
             @Query("pageToken") String pageToken ,
             @Query("part") String partSnippet ,
             @Query("relatedToVideoId") String relatedId,
             @Query("type") String typeVideo,
+            @Query("key") String key,
+            @Query("maxResults") String maxResults);
+
+    // Video mới nhất update từ channel
+    @GET("youtube/v3/search")
+    Call<RelatedVideo> videoUpdateNews(
+            @Query("pageToken") String pageToken ,
+            @Query("part") String partSnippetAndId ,
+            @Query("channelId") String channelId,
+            @Query("order") String order,
             @Query("key") String key,
             @Query("maxResults") String maxResults);
 }

@@ -1,12 +1,9 @@
 package com.example.youtubeapp.fragment;
 
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,7 +11,6 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,22 +22,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.youtubeapp.R;
 import com.example.youtubeapp.Util;
-import com.example.youtubeapp.activitys.VideoPlayActivity;
 import com.example.youtubeapp.adapter.RepliesCommentAdapter;
 import com.example.youtubeapp.api.ApiServicePlayList;
 import com.example.youtubeapp.model.itemrecycleview.CommentItem;
 import com.example.youtubeapp.model.itemrecycleview.RepliesCommentItem;
-import com.example.youtubeapp.model.listcomment.Comments;
-import com.example.youtubeapp.model.listcomment.RepliesComment;
 import com.example.youtubeapp.model.listreplies.ItemsR;
 import com.example.youtubeapp.model.listreplies.Replies;
-import com.example.youtubeapp.my_interface.ILoadMore;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.squareup.picasso.Picasso;
 
-import java.security.PublicKey;
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -219,7 +210,7 @@ public class BottomSheetDialogRepliesFragment extends BottomSheetDialogFragment 
     }
 
     public void callApiReplies(String nextPageToken, String parentId, String maxResults) {
-        ApiServicePlayList.apiServicePlayList.Replies(
+        ApiServicePlayList.apiServicePlayList.replies(
                 nextPageToken,
                 "snippet",
                 maxResults,
@@ -273,7 +264,7 @@ public class BottomSheetDialogRepliesFragment extends BottomSheetDialogFragment 
 
 
     public void callApiRepliess(String nextPageToken, String parentId, String maxResults) {
-        ApiServicePlayList.apiServicePlayList.Replies(
+        ApiServicePlayList.apiServicePlayList.replies(
                 nextPageToken,
                 "snippet",
                 maxResults,

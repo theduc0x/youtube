@@ -13,4 +13,6 @@
     <string name="tv_content_rule">Hãy nhớ tôn trọng người dùng khác khi đăng bình luận và tuân thủ Nguyên tắc cộng đồng của chúng tôi</string>
     <string name="space_line"> • </string>
     <string name="tv_editor">(editor)</string>
+    <string name="search_channel">Search</string>
+    <string name="option_channel">Option</string>
 </resources>

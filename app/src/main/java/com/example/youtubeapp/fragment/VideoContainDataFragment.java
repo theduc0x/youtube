@@ -18,11 +18,10 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.youtubeapp.R;
 import com.example.youtubeapp.Util;
-import com.example.youtubeapp.activitys.VideoPlayActivity;
+import com.example.youtubeapp.activitys.ChannelActivity;
 import com.example.youtubeapp.api.ApiServicePlayList;
 import com.example.youtubeapp.model.infochannel.Channel;
 import com.example.youtubeapp.model.infochannel.Itemss;
@@ -40,7 +39,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class VideoContainDataFragment extends Fragment {
-    RelativeLayout rlGroup;
+    RelativeLayout rlGroup, rlOpenChannel;
     LinearLayout llDisplayDesc, llCommentGroup;
     TextView tvTitleVideoPlay, tvViewVideoPlay, tvTimeVideoPlay;
     BottomNavigationView bnvOption;
@@ -61,6 +60,13 @@ public class VideoContainDataFragment extends Fragment {
         initView(view);
         setData();
         addFragmentRelatedVideo();
+        // Mở thông tin channel
+        rlOpenChannel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openChannel();
+            }
+        });
         return view;
     }
     // Api lấy thông tin channel, ở đây chỉ lấy ảnh của channel
@@ -104,7 +110,7 @@ public class VideoContainDataFragment extends Fragment {
     }
     // Gọi api lấy comment đầu tiên, nổi bật nhất của video
     private void callApiComment(String id) {
-        ApiServicePlayList.apiServicePlayList.Comment(
+        ApiServicePlayList.apiServicePlayList.comment(
                 "",
                 "snippet",
                 "replies",
@@ -158,6 +164,7 @@ public class VideoContainDataFragment extends Fragment {
         tvCommentCount = view.findViewById(R.id.tv_comment_count_video);
         civLogoUser = view.findViewById(R.id.civ_logo_channel_user);
         tvCmtContent = view.findViewById(R.id.tv_comment_video);
+        rlOpenChannel = view.findViewById(R.id.rl_channel_click);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -239,5 +246,12 @@ public class VideoContainDataFragment extends Fragment {
 
         transaction.add(R.id.fl_related_video, relatedToVideoFragment);
         transaction.commit();
+    }
+    private void openChannel() {
+
+        Intent openToChannel = new Intent(getActivity(), ChannelActivity.class);
+        openToChannel.putExtra(Util.EXTRA_ID_CHANNEL_TO_CHANNEL, idChannel);
+        openToChannel.putExtra(Util.EXTRA_TITLE_CHANNEL_TO_CHANNEL, titleChannel);
+        startActivity(openToChannel);
     }
 }

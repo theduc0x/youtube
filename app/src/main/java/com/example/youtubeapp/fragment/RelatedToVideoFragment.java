@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +22,6 @@ import com.example.youtubeapp.model.itemrecycleview.VideoItem;
 import com.example.youtubeapp.model.listvideorelated.ItemsRelated;
 import com.example.youtubeapp.model.listvideorelated.RelatedVideo;
 import com.example.youtubeapp.my_interface.IItemOnClickVideoListener;
-import com.example.youtubeapp.my_interface.ILoadMore;
 
 import java.util.ArrayList;
 
@@ -114,7 +112,7 @@ public class RelatedToVideoFragment extends Fragment {
 
     // Get dữ liệu về
     private void callApiRelatedVideo(String pageToken, String relatedIdVideo, String maxResults) {
-        ApiServicePlayList.apiServicePlayList.Related_call(
+        ApiServicePlayList.apiServicePlayList.relatedCall(
                 pageToken,
                 "snippet",
                 relatedIdVideo,

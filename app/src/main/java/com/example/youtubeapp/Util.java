@@ -36,6 +36,9 @@ public class Util {
     public static String BUNDLE_EXTRA_ITEM_VIDEO = "extra item v video";
     public static String BUNDLE_EXTRA_ID_VIDEO = "extra id video";
     public static String BUNDLE_EXTRA_CMT_COUNT_VIDEO = "extra comment count video";
+    public static String EXTRA_ID_CHANNEL_TO_CHANNEL = "to channel";
+    public static String EXTRA_TITLE_CHANNEL_TO_CHANNEL = "to title channel h";
+    public static String EXTRA_ID_CHANNEL_TO_CHANNEL_FROM_ADAPTER = "to channel";
     public static ArrayList<VideoItem> listVideoItem = null;
     public static ArrayList<CommentItem> listCmtItem = null;
     public static ArrayList<RepliesCommentItem> listReplies = null;

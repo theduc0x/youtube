@@ -7,6 +7,25 @@ public class Itemss {
     private SnippetChannel snippet;
     private ContentDetailsChannel contentDetails;
     private StatisticsChannel statistics;
+    private ToppicDetails topicDetails;
+    private BrandingSettings brandingSettings;
+
+    public BrandingSettings getBrandingSettings() {
+        return brandingSettings;
+    }
+
+    public void setBrandingSettings(BrandingSettings brandingSettings) {
+        this.brandingSettings = brandingSettings;
+    }
+
+    public ToppicDetails getTopicDetails() {
+        return topicDetails;
+    }
+
+
+    public void setTopicDetails(ToppicDetails topicDetails) {
+        this.topicDetails = topicDetails;
+    }
 
     public String getKind() {
         return kind;
