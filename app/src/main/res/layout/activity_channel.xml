@@ -47,8 +47,8 @@
         android:layout_height="675dp"
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        app:layout_anchor="@id/bnv_fragment_channel"
-        app:layout_anchorGravity="top">
+
+        app:layout_anchorGravity="bottom">
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tl_channel"

@@ -112,9 +112,11 @@ public interface ApiServicePlayList {
     @GET("youtube/v3/search")
     Call<RelatedVideo> videoUpdateNews(
             @Query("pageToken") String pageToken ,
-            @Query("part") String partSnippetAndId ,
+            @Query("part") String partSnippet ,
+            @Query("part") String partId ,
             @Query("channelId") String channelId,
             @Query("order") String order,
+            @Query("type") String typeVideo,
             @Query("key") String key,
             @Query("maxResults") String maxResults);
 }

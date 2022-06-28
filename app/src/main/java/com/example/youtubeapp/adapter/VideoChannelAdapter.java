@@ -1,5 +1,6 @@
 package com.example.youtubeapp.adapter;
 
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,20 +9,23 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.youtubeapp.R;
-import com.example.youtubeapp.model.itemrecycleview.VideoItem;
+import com.example.youtubeapp.Util;
+import com.example.youtubeapp.model.itemrecycleview.VideoChannelItem;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 public class VideoChannelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final static int VIEW_TYPE_ITEM = 0,
                             VIEW_TYPE_LOADING = 1;
-    private ArrayList<VideoItem> listItems;
+    private ArrayList<VideoChannelItem> listItems;
     private boolean isLoadingAdd;
 
-    public void setData(ArrayList<VideoItem> listItems) {
+    public void setData(ArrayList<VideoChannelItem> listItems) {
         this.listItems = listItems;
         notifyDataSetChanged();
     }
@@ -48,9 +52,44 @@ public class VideoChannelAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        if (holder.getItemViewType() == VIEW_TYPE_ITEM) {
+            VideoChannelItem item = listItems.get(position);
+            ItemVideoViewHolder itemVideoViewHolder = (ItemVideoViewHolder) holder;
+//            if (item == null) {
+//                itemVideoViewHolder.ivThumbnails.setVisibility(View.GONE);
+//                itemVideoViewHolder.tvTitleVideo.setVisibility(View.GONE);
+//                itemVideoViewHolder.tvViewCount.setVisibility(View.GONE);
+//                itemVideoViewHolder.tvTimeDiff.setVisibility(View.GONE);
+//            } else {
+                if (item.getTitleVideo().equals("")) {
+                    itemVideoViewHolder.tvTitleVideo.setText("");
+                } else {
+                    itemVideoViewHolder.tvTitleVideo.setText(item.getTitleVideo());
+                }
 
+                if (item.getViewCount().equals("")) {
+                    itemVideoViewHolder.tvViewCount.setText("0");
+                } else {
+                    itemVideoViewHolder.tvViewCount
+                            .setText(Util.convertViewCount(Double.parseDouble(item.getViewCount())));
+                }
+//                if (item.getPublishAt().equals("")) {
+//                    itemVideoViewHolder.tvTimeDiff.setText("");
+//                } else {
+                    itemVideoViewHolder.tvTimeDiff.setText(Util.getTime(item.getPublishAt()));
+//                }
+
+                if (item.getUrlThumbnails().equals("")) {
+                    Picasso.get().load("https://i.ytimg.com/vi/1jIdw2mQDp4/maxresdefault.jpg")
+                            .into(itemVideoViewHolder.ivThumbnails);
+                } else {
+                    Picasso.get().load(item.getUrlThumbnails()).into(itemVideoViewHolder.ivThumbnails);
+                }
+
+        }
     }
 
     @Override
@@ -78,5 +117,22 @@ public class VideoChannelAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             super(itemView);
             pbLoading = itemView.findViewById(R.id.pb_loading);
         }
+    }
+
+    public void addFooterLoading() {
+            isLoadingAdd = true;
+            listItems.add(new VideoChannelItem("", "", "", "", ""));
+    }
+
+    public void removeFooterLoading() {
+        isLoadingAdd = false;
+
+        int pos = listItems.size() - 1;
+        VideoChannelItem item = listItems.get(pos);
+        if (item != null) {
+            listItems.remove(pos);
+            notifyItemRemoved(pos);
+        }
+
     }
 }

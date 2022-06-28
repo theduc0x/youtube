@@ -74,8 +74,12 @@ public class ChannelHomeFragment extends Fragment {
                 if (channel != null) {
                     ArrayList<Itemss> listItem = channel.getItems();
                     item = listItem.get(0);
+                        if (item.getBrandingSettings().getImage().getBannerExternalUrl() == null) {
+                            urlBanner = "https://i.ytimg.com/vi/0UDkE-PrV7s/hqdefault.jpg";
+                        } else {
+                            urlBanner = item.getBrandingSettings().getImage().getBannerExternalUrl();
+                        }
 
-                        urlBanner = item.getBrandingSettings().getImage().getBannerExternalUrl();
                         titleChannel = item.getSnippet().getTitle();
                         isCheckHideSub = item.getStatistics().isHiddenSubscriberCount();
                         if (isCheckHideSub) {
