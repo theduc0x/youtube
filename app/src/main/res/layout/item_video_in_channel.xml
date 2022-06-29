@@ -11,6 +11,7 @@
         android:layout_width="0dp"
         android:layout_height="95dp"
         android:layout_weight="4.5"
+        android:scaleType="centerCrop"
         android:src="@drawable/ic_youtube"/>
 
     <LinearLayout
@@ -27,7 +28,7 @@
             android:maxLines="3"
             android:ellipsize="end"
             android:textAllCaps="true"
-            android:textSize="18dp"
+            android:textSize="14dp"
             android:textColor="@color/black"
             android:text="Nhạc Chill Học Bài - Những Bản Nhạc Baroque Giúp Tập Trung Học Tập - Nhạc Không Lời Thư Giãn #14"
             />

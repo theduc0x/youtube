@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.youtubeapp.R;
 import com.example.youtubeapp.Util;
@@ -56,41 +57,36 @@ public class ChannelVideoFragment extends Fragment {
                 new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
         rvListVideo.setLayoutManager(linearLayoutManager);
         adapter = new VideoChannelAdapter();
+//        rvListVideo.setNestedScrollingEnabled(false);
         rvListVideo.setAdapter(adapter);
-//        callApiVideoChannel(pageToken, idChannel, "10");
-
-//
+        // Gọi page đầu tiên trong recycleview
         setFirstData();
-
-        adapter.setData(list);
+        // Sự kiện load data khi cuộn đến cuối page
         rvListVideo.addOnScrollListener(new PaginationScrollListener(linearLayoutManager) {
             @Override
             public void loadMoreItem() {
                 isLoading = true;
-
                 currenPage += 1;
                 loadNextPage();
             }
-
             @Override
             public boolean isLoading() {
                 return isLoading;
             }
-
             @Override
             public boolean isLastPage() {
                 return isLastPage;
             }
         });
+
         return view;
     }
 //     Load data page one
     private void setFirstData() {
-        listItems = list;
+        listItems = null;
         callApiVideoChannel(pageToken, idChannel, "10");
-
     }
-
+    // Set propress bar load data
     private void setProgressBar() {
         if (currenPage < totalPage) {
             adapter.addFooterLoading();
@@ -98,24 +94,16 @@ public class ChannelVideoFragment extends Fragment {
             isLastPage = true;
         }
     }
-
-//    private ArrayList<VideoChannelItem> getListUser(String pageToken, String idChannel, String max) {
-//        Log.d("duckaa", "Loading "+ currenPage);
-//
-//
-//
-//        return list;
-//    }
-
-
+    // Load dữ liệu của page tiếp theo
     private void loadNextPage() {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+                Toast.makeText(getContext(), "Load Page" + currenPage, Toast.LENGTH_SHORT).show();
                 callApiVideoChannel(pageToken, idChannel, "10");
                 isLoading = false;
             }
-        },2000);
+        },1000);
     }
 
     private void callApiVideoChannel(String nextPageToken, String channelId, String maxResults) {
@@ -132,12 +120,14 @@ public class ChannelVideoFragment extends Fragment {
         ).enqueue(new Callback<RelatedVideo>() {
             @Override
             public void onResponse(Call<RelatedVideo> call, Response<RelatedVideo> response) {
-                Log.d("duckak", response.toString());
                 String urlThumbnails = "", titleVideo = "", publishAt = "",
                         viewCount = "", idVideo = "";
 
                 video = response.body();
                 if (video != null) {
+                    totalPage = (int) video.getPageInfo().getTotalResults() / 10;
+                    Log.d("page", String.valueOf(totalPage));
+                    Log.d("page", String.valueOf(video.getPageInfo().getTotalResults()));
                     pageToken = video.getNextPageToken();
                     ArrayList<ItemsRelated> listItem = video.getItems();
 
@@ -172,6 +162,7 @@ public class ChannelVideoFragment extends Fragment {
                         adapter.notifyDataSetChanged();
                         setProgressBar();
                     }
+
                 }
             }
             @Override

@@ -156,6 +156,7 @@ public class BottomSheetDialogCommentFragment extends BottomSheetDialogFragment 
                 new DividerItemDecoration(getActivity(), RecyclerView.VERTICAL);
         rvListComment.setLayoutManager(linearLayoutManager);
         rvListComment.addItemDecoration(decoration);
+        rvListComment.setNestedScrollingEnabled(false);
         rvListComment.setAdapter(adapter);
     }
 

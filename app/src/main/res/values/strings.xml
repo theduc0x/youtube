@@ -15,4 +15,15 @@
     <string name="tv_editor">(editor)</string>
     <string name="search_channel">Search</string>
     <string name="option_channel">Option</string>
+    <string name="title_sort_playlist">Ngày thêm (mới nhất)</string>
+    <string name="text_test">Nhạc Chill Học Bài - Những Bản Nhạc Baroque Giúp Tập Trung Học Tập - Nhạc Không Lời Thư Giãn #14</string>
+    <string name="title_activity_video_play_list">VideoPlayListActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 </resources>

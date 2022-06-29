@@ -3,9 +3,11 @@ package com.example.youtubeapp.api;
 import com.example.youtubeapp.model.detailvideo.DetailVideo;
 import com.example.youtubeapp.model.infochannel.Channel;
 import com.example.youtubeapp.model.listcomment.Comment;
+import com.example.youtubeapp.model.listplaylistvideochannel.PlayList;
 import com.example.youtubeapp.model.listreplies.Replies;
 import com.example.youtubeapp.model.listvideohome.ListVideo;
 import com.example.youtubeapp.model.listvideorelated.RelatedVideo;
+import com.example.youtubeapp.model.playlistitem.PlayListItemVideo;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -13,7 +15,6 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
-import retrofit2.http.Part;
 import retrofit2.http.Query;
 
 public interface ApiServicePlayList {
@@ -119,4 +120,23 @@ public interface ApiServicePlayList {
             @Query("type") String typeVideo,
             @Query("key") String key,
             @Query("maxResults") String maxResults);
+
+    // PlayList từ id channel
+    @GET("youtube/v3/playlists")
+    Call<PlayList> playListChannel(
+            @Query("pageToken") String pageToken ,
+            @Query("part") String part ,
+            @Query("channelId") String channelId,
+            @Query("key") String key,
+            @Query("maxResults") String maxResults);
+
+    // ItemVideo trong PlayList ở trên
+    @GET("youtube/v3/playlistItems")
+    Call<PlayListItemVideo> listInPlayList(
+            @Query("pageToken") String pageToken ,
+            @Query("part") String part ,
+            @Query("playlistId") String playListId,
+            @Query("key") String key,
+            @Query("maxResults") String maxResults);
+
 }

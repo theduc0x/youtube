@@ -43,7 +43,9 @@ public class ViewPagerChannelAdapter extends FragmentStateAdapter {
 
                 return channelVideoFragment;
             case 2 :
-                return new ChannelPlayListFragment();
+                ChannelPlayListFragment channelPlayListFragment = new ChannelPlayListFragment();
+                channelPlayListFragment.setArguments(bundle);
+                return channelPlayListFragment;
             case 3 :
                 return new ChannelCommunityFragment();
             case 4 :
