@@ -1,9 +1,9 @@
 package com.example.youtubeapp.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,14 +15,17 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.youtubeapp.R;
-import com.example.youtubeapp.Util;
+import com.example.youtubeapp.utiliti.Util;
+import com.example.youtubeapp.activitys.VideoPlayActivity;
 import com.example.youtubeapp.adapter.VideoChannelAdapter;
 import com.example.youtubeapp.api.ApiServicePlayList;
 import com.example.youtubeapp.model.detailvideo.DetailVideo;
 import com.example.youtubeapp.model.detailvideo.ItemVideo;
 import com.example.youtubeapp.model.itemrecycleview.VideoChannelItem;
+import com.example.youtubeapp.model.itemrecycleview.VideoItem;
 import com.example.youtubeapp.model.listvideorelated.ItemsRelated;
 import com.example.youtubeapp.model.listvideorelated.RelatedVideo;
+import com.example.youtubeapp.my_interface.IItemOnClickVideoListener;
 import com.example.youtubeapp.my_interface.PaginationScrollListener;
 
 import java.util.ArrayList;
@@ -56,7 +59,16 @@ public class ChannelVideoFragment extends Fragment {
         LinearLayoutManager linearLayoutManager =
                 new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
         rvListVideo.setLayoutManager(linearLayoutManager);
-        adapter = new VideoChannelAdapter();
+        adapter = new VideoChannelAdapter(new IItemOnClickVideoListener() {
+            @Override
+            public void OnClickItemVideo(VideoItem item) {
+                Intent toPlayVideo = new Intent(getActivity(), VideoPlayActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(Util.BUNDLE_EXTRA_OBJECT_ITEM_VIDEO, item);
+                toPlayVideo.putExtras(bundle);
+                startActivity(toPlayVideo);
+            }
+        });
 //        rvListVideo.setNestedScrollingEnabled(false);
         rvListVideo.setAdapter(adapter);
         // Gọi page đầu tiên trong recycleview

@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.youtubeapp.R;
-import com.example.youtubeapp.Util;
+import com.example.youtubeapp.utiliti.Util;
 import com.example.youtubeapp.api.ApiServicePlayList;
 import com.example.youtubeapp.model.infochannel.Channel;
 import com.example.youtubeapp.model.infochannel.Itemss;
@@ -74,6 +74,9 @@ public class ChannelHomeFragment extends Fragment {
                 if (channel != null) {
                     ArrayList<Itemss> listItem = channel.getItems();
                     item = listItem.get(0);
+                    if (item == null) {
+                        return;
+                    }
                         if (item.getBrandingSettings().getImage().getBannerExternalUrl() == null) {
                             urlBanner = "https://i.ytimg.com/vi/0UDkE-PrV7s/hqdefault.jpg";
                         } else {

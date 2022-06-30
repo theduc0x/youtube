@@ -14,9 +14,8 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.youtubeapp.R;
-import com.example.youtubeapp.Util;
+import com.example.youtubeapp.utiliti.Util;
 import com.example.youtubeapp.model.itemrecycleview.CommentItem;
-import com.example.youtubeapp.model.listcomment.RepliesComment;
 import com.example.youtubeapp.my_interface.IItemOnClickCommentListener;
 import com.squareup.picasso.Picasso;
 

@@ -15,13 +15,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.youtubeapp.R;
-import com.example.youtubeapp.Util;
+import com.example.youtubeapp.utiliti.Util;
 import com.example.youtubeapp.api.ApiServicePlayList;
 import com.example.youtubeapp.model.detailvideo.DetailVideo;
 import com.example.youtubeapp.model.detailvideo.ItemVideo;
 import com.example.youtubeapp.model.itemrecycleview.VideoItem;
-import com.example.youtubeapp.model.listvideohome.ListVideo;
-import com.example.youtubeapp.model.listvideorelated.RelatedVideo;
 import com.example.youtubeapp.my_interface.IItemOnClickVideoListener;
 import com.example.youtubeapp.my_interface.ILoadMore;
 import com.squareup.picasso.Picasso;
@@ -121,13 +119,16 @@ public class RelatedVideoAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ItemViewHolder) {
             VideoItem item = items.get(position);
+            if (item == null) {
+                return;
+            }
             ItemViewHolder viewHolder = (ItemViewHolder) holder;
 
             String urlThumbnailVideo = item.getUrlImageItemVideo();
             String titleVideo = item.getTvTitleVideo();
             String titleChannel = item.getTvTitleChannel();
-            String urlLogoChannel = item.getUrlLogoChannel();
-            String timeVideo = item.getTvTimeVideo();
+
+            String timeVideo = item.getPublishAt();
             // tính khoảng cách từ ngày public video đến nay
             String dateDayDiff = Util.getTime(timeVideo);
             String viewCountVideo = item.getViewCountVideo();
@@ -135,7 +136,12 @@ public class RelatedVideoAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             String descVideo = item.getDescVideo();
             String idChannel = item.getIdChannel();
             String idVideo = item.getIdVideo();
-
+            String urlLogoChannel;
+            if (item.getUrlLogoChannel().equals("")) {
+                urlLogoChannel = "https://st.quantrimang.com/photos/image/2020/07/30/Hinh-Nen-Trang-10.jpg";
+            } else {
+                urlLogoChannel = item.getUrlLogoChannel();
+            }
             callApiDetailVideo(idVideo, viewHolder, item);
 
             Picasso.get().load(urlThumbnailVideo).into(viewHolder.ivItemVideo);

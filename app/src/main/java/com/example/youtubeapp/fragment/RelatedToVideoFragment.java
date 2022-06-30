@@ -14,10 +14,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.youtubeapp.R;
-import com.example.youtubeapp.Util;
+import com.example.youtubeapp.utiliti.Util;
 import com.example.youtubeapp.activitys.VideoPlayActivity;
 import com.example.youtubeapp.adapter.RelatedVideoAdapter;
 import com.example.youtubeapp.api.ApiServicePlayList;
+import com.example.youtubeapp.model.infochannel.Channel;
+import com.example.youtubeapp.model.infochannel.Itemss;
 import com.example.youtubeapp.model.itemrecycleview.VideoItem;
 import com.example.youtubeapp.model.listvideorelated.ItemsRelated;
 import com.example.youtubeapp.model.listvideorelated.RelatedVideo;
@@ -69,39 +71,6 @@ public class RelatedToVideoFragment extends Fragment {
         rvRelatedVideo.addItemDecoration(decoration);
         rvRelatedVideo.setAdapter(adapter);
 
-//
-//        adapter.setLoadMore(new ILoadMore() {
-//            @Override
-//            public void onLoadMore() {
-//                String s = pageTokenTo;
-//                int totalR = relatedVideo.getPageInfo().getTotalResults();
-//                Log.d("abccc", relatedVideo.getPageInfo().getResultsPerPage()+"");
-//                if (listItems.size() <= totalR) {
-//                    listItems.add(null);
-//                    adapter.notifyItemInserted(listItems.size() - 1);
-//                    new Handler().postDelayed(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            listItems.remove(listItems.size() - 1);
-//                            adapter.notifyItemRemoved(listItems.size());
-//                            callApiRelatedVideo(pageTokenTo, idVideoRe, "5");
-////                            int index = listItems.size();
-////                            int end = index + 5;
-////                            for (int i = index ; i < end; i++) {
-////                                adapter.notifyItemInserted(i);
-////                            }
-//                            adapter.notifyDataSetChanged();
-//
-//                            Log.d("abcccc", s + "");
-//                            adapter.setLoaded();
-//                        }
-//                    }, 1000);
-//                } else {
-//                    Log.d("abccc", "Success");
-//                }
-//            }
-//        });
-
         return view;
     }
 
@@ -135,24 +104,26 @@ public class RelatedToVideoFragment extends Fragment {
                         return;
                     }
                     pageTokenTo = nextPageToken;
-
+                    int n = 0;
                     ArrayList<ItemsRelated> listItem = relatedVideo.getItems();
                     for (int i = 0; i < listItem.size(); i++) {
+
                         if (listItem.get(i).getSnippet() == null) {
                             i++;
                         } else {
+
                             urlThumbnailVideo = listItem.get(i).getSnippet().getThumbnails().getHigh().getUrl();
-
-
 
                             titleVideo = listItem.get(i).getSnippet().getTitle();
                             titleChannel = listItem.get(i).getSnippet().getChannelTitle();
                             idChannel = listItem.get(i).getSnippet().getChannelId();
 
-                            urlLogoChannel = listItem.get(i).getSnippet()
-                                    .getThumbnails().getHigh().getUrl();
+                            urlLogoChannel = "";
 
                             idVideo = listItem.get(i).getId().getVideoId();
+                            // Lấy ảnh logo Channel
+                            callApiChannel(idChannel , listItems, n);
+
 
                             timeVideo = listItem.get(i).getSnippet().getPublishedAt();
 
@@ -162,6 +133,7 @@ public class RelatedToVideoFragment extends Fragment {
                                     urlLogoChannel, titleVideo, timeVideo,
                                     titleChannel, viewCountVideo, idVideo,
                                     likeCountVideo, descVideo, idChannel, commentCount));
+                            n++;
 //                        adapter.notifyItemInserted(i);
                         }
 
@@ -173,6 +145,32 @@ public class RelatedToVideoFragment extends Fragment {
             @Override
             public void onFailure(Call<RelatedVideo> call, Throwable t) {
 
+            }
+        });
+    }
+
+    private void callApiChannel(String id, ArrayList<VideoItem> video, int pos) {
+        ApiServicePlayList.apiServicePlayList.infoChannel(
+                "snippet",
+                "contentDetails",
+                "statistics",
+                id,
+                Util.API_KEY
+        ).enqueue(new Callback<Channel>() {
+            @Override
+            public void onResponse(Call<Channel> call, Response<Channel> response) {
+                ArrayList<Itemss> listItem = new ArrayList<>();
+                Channel channel = response.body();
+                if (channel != null) {
+                    listItem = channel.getItems();
+                    String urlLogooo = listItem.get(0).getSnippet().getThumbnails().getHigh().getUrl();
+                    video.get(pos).setUrlLogoChannel(urlLogooo);
+                    adapter.notifyDataSetChanged();
+                }
+            }
+            @Override
+            public void onFailure(Call<Channel> call, Throwable t) {
+                Log.d("ab", t.toString());
             }
         });
     }

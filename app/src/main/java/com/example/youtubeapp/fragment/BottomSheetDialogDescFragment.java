@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.TextView;
 
@@ -16,12 +15,11 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.youtubeapp.R;
-import com.example.youtubeapp.Util;
+import com.example.youtubeapp.utiliti.Util;
 import com.example.youtubeapp.api.ApiServicePlayList;
 import com.example.youtubeapp.model.infochannel.Channel;
 import com.example.youtubeapp.model.infochannel.Itemss;
 import com.example.youtubeapp.model.itemrecycleview.VideoItem;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.squareup.picasso.Picasso;
@@ -66,6 +64,7 @@ public class BottomSheetDialogDescFragment extends BottomSheetDialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+
         BottomSheetDialog bottomSheetDialog =
                 (BottomSheetDialog) super.onCreateDialog(savedInstanceState);
         View viewDialog = LayoutInflater.from(getContext()).inflate(
@@ -78,15 +77,15 @@ public class BottomSheetDialogDescFragment extends BottomSheetDialogFragment {
         int height = displayMetrics.heightPixels;
         int maxHeight = (int) (height*0.65);
 
-        BottomSheetBehavior bottomSheetBehavior =
-                BottomSheetBehavior.from(((View) viewDialog.getParent()));
-        bottomSheetBehavior.setMaxHeight(maxHeight);
-        bottomSheetBehavior.setPeekHeight(maxHeight);
+//        BottomSheetBehavior bottomSheetBehavior =
+//                BottomSheetBehavior.from(((View) viewDialog.getParent()));
+//        bottomSheetBehavior.setMaxHeight(maxHeight);
+//        bottomSheetBehavior.setPeekHeight(maxHeight);
         intMain(viewDialog);
         setDataDesc();
         bottomSheetDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL,
                 WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL);
-        bottomSheetDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+//        bottomSheetDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         tbCancel.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -156,7 +155,7 @@ public class BottomSheetDialogDescFragment extends BottomSheetDialogFragment {
         tvTitleChannelVideo.setText(itemV.getTvTitleChannel());
         tvViewCountVideo.setText(itemV.getViewCountVideo());
         tvLikeCountVideo.setText(itemV.getLikeCountVideo());
-        getTime(itemV.getTvTimeVideo());
+        getTime(itemV.getPublishAt());
         tvDesc.setText(itemV.getDescVideo());
     }
 

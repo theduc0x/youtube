@@ -13,4 +13,5 @@
     <color name="comment">#FDF9F9</color>
     <color name="blue">#2539A8</color>
     <color name="button">#EBECED</color>
+    <color name="black_opacity">#D0121111</color>
 </resources>

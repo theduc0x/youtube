@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    android:id="@+id/ll_open_video_play_from_listplay"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="10dp"
@@ -11,8 +13,7 @@
         android:layout_width="0dp"
         android:layout_height="95dp"
         android:layout_weight="4.5"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_youtube"/>
+        android:scaleType="centerCrop" />
 
     <LinearLayout
         android:layout_width="0dp"
@@ -29,15 +30,14 @@
             android:ellipsize="end"
             android:textAllCaps="true"
             android:textSize="14dp"
-            android:textColor="@color/black"
-            android:text="Nhạc Chill Học Bài - Những Bản Nhạc Baroque Giúp Tập Trung Học Tập - Nhạc Không Lời Thư Giãn #14"
-            />
+            android:textColor="@color/black" />
 
         <TextView
-            android:id="@+id/tv_title_Channel_in_playlist_detail"
+            android:id="@+id/tv_title_channel_in_playlist_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Duy Thẩm"/>
+            android:maxLines="1"
+            android:ellipsize="end"/>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -46,8 +46,7 @@
             <TextView
                 android:id="@+id/tv_view_count_video_in_playlist"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="16 N"/>
+                android:layout_height="wrap_content" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -57,8 +56,7 @@
             <TextView
                 android:id="@+id/tv_time_diff_date_detail"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="3 hour ago"/>
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 

@@ -7,14 +7,25 @@ public class ItemVideoInPlayList {
     private String viewCountVideo;
     private String publishAt;
     private String idVideo;
+    private String privacyStatus;
 
-    public ItemVideoInPlayList(String urlImageItemVideo, String titleVideo, String tvTitleChannel, String viewCountVideo, String publishAt, String idVideo) {
+
+    public ItemVideoInPlayList(String urlImageItemVideo, String titleVideo, String tvTitleChannel, String viewCountVideo, String publishAt, String idVideo, String privacyStatus) {
         this.urlImageItemVideo = urlImageItemVideo;
         this.titleVideo = titleVideo;
         this.tvTitleChannel = tvTitleChannel;
         this.viewCountVideo = viewCountVideo;
         this.publishAt = publishAt;
         this.idVideo = idVideo;
+        this.privacyStatus = privacyStatus;
+    }
+
+    public String getPrivacyStatus() {
+        return privacyStatus;
+    }
+
+    public void setPrivacyStatus(String privacyStatus) {
+        this.privacyStatus = privacyStatus;
     }
 
     public String getUrlImageItemVideo() {

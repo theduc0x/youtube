@@ -26,4 +26,9 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="tv_not_channel_feature">This channel doesn\'t feature any other channels.</string>
+    <string name="tv_desc_about_channel">Decription</string>
+    <string name="tv_test_content_desc">TinCoder Android Java là một kênh YouTube chia sẻ những kinh nghiệm của bản thân mình trong lĩnh vực lập trình ứng dụng Android - với ngôn ngữ Java Bằng những kinh nghiệm thực tế khi đi làm, đã từng tham gia nhiều dự án Outsourcing cho cả khách hàng trong nước và ngoài nước, mình rất muốn chia sẻ và giới thiệu những kiến thức của mình về lập trình đến tất cả mọi người. Rất mong mọi người ủng hộ và góp ý cho mình bằng cách Subscribe kênh YouTube của mình, like, share, comment những video mình chia sẻ. Cám ơn tất cả mọi người !!! Thông tin liên hệ: mixproduction29932@gmail.com</string>
+    <string name="tv_link_about">Links</string>
+    <string name="tv_details_about">Details</string>
 </resources>

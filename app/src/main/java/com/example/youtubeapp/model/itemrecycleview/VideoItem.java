@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class VideoItem implements Serializable {
     private String urlImageItemVideo;
     private String urlLogoChannel;
-    private String tvTitleVideo, tvTimeVideo;
+    private String tvTitleVideo, publishAt;
     private String tvTitleChannel;
     private String viewCountVideo;
     private String idVideo;
@@ -61,7 +61,7 @@ public class VideoItem implements Serializable {
         this.urlImageItemVideo = urlImageItemVideo;
         this.urlLogoChannel = urlLogoChannel;
         this.tvTitleVideo = tvTitleVideo;
-        this.tvTimeVideo = tvTimeVideo;
+        this.publishAt = tvTimeVideo;
         this.tvTitleChannel = tvTitleChannel;
         this.viewCountVideo = viewCountVideo;
         this.idVideo = idVideo;
@@ -105,12 +105,12 @@ public class VideoItem implements Serializable {
         this.tvTitleVideo = tvTitleVideo;
     }
 
-    public String getTvTimeVideo() {
-        return tvTimeVideo;
+    public String getPublishAt() {
+        return publishAt;
     }
 
-    public void setTvTimeVideo(String tvTimeVideo) {
-        this.tvTimeVideo = tvTimeVideo;
+    public void setPublishAt(String publishAt) {
+        this.publishAt = publishAt;
     }
 
     public String getTvTitleChannel() {

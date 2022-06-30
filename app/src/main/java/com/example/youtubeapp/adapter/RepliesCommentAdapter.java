@@ -15,8 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.youtubeapp.R;
-import com.example.youtubeapp.Util;
-import com.example.youtubeapp.model.itemrecycleview.CommentItem;
+import com.example.youtubeapp.utiliti.Util;
 import com.example.youtubeapp.model.itemrecycleview.RepliesCommentItem;
 import com.example.youtubeapp.my_interface.ILoadMore;
 import com.squareup.picasso.Picasso;

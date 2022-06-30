@@ -6,18 +6,13 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.youtubeapp.R;
-import com.example.youtubeapp.Util;
+import com.example.youtubeapp.utiliti.Util;
 import com.example.youtubeapp.adapter.ViewPagerChannelAdapter;
-import com.example.youtubeapp.fragment.ChannelAboutFragment;
-import com.example.youtubeapp.fragment.ChannelChannelsFragment;
-import com.example.youtubeapp.fragment.ChannelCommunityFragment;
-import com.example.youtubeapp.fragment.ChannelHomeFragment;
-import com.example.youtubeapp.fragment.ChannelPlayListFragment;
-import com.example.youtubeapp.fragment.ChannelVideoFragment;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -27,6 +22,7 @@ public class ChannelActivity extends AppCompatActivity {
     ViewPagerChannelAdapter adapter;
     String idChannel = "", titleChannel = "";
     TextView tvTitleChannel;
+    ImageButton ibBack;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,12 +30,19 @@ public class ChannelActivity extends AppCompatActivity {
         initView();
         setTabLayout();
         getIdChannelAndTransHomeChannel();
+        ibBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
     private void initView() {
         tlChannel = findViewById(R.id.tl_channel);
         vp2Content = findViewById(R.id.vp2_content);
         tvTitleChannel = findViewById(R.id.tv_title_channel_nav);
+        ibBack = findViewById(R.id.ib_back_home_channel);
     }
 
     private void setTabLayout() {

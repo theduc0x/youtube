@@ -7,7 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.example.youtubeapp.Util;
+import com.example.youtubeapp.utiliti.Util;
 import com.example.youtubeapp.fragment.ChannelAboutFragment;
 import com.example.youtubeapp.fragment.ChannelChannelsFragment;
 import com.example.youtubeapp.fragment.ChannelCommunityFragment;
@@ -49,7 +49,9 @@ public class ViewPagerChannelAdapter extends FragmentStateAdapter {
             case 3 :
                 return new ChannelCommunityFragment();
             case 4 :
-                return new ChannelChannelsFragment();
+                ChannelChannelsFragment channelChannelsFragment = new ChannelChannelsFragment();
+                channelChannelsFragment.setArguments(bundle);
+                return channelChannelsFragment;
             case 5 :
                 return new ChannelAboutFragment();
             default:

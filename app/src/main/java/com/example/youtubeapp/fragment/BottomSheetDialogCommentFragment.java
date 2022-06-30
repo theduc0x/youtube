@@ -23,7 +23,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.youtubeapp.R;
-import com.example.youtubeapp.Util;
+import com.example.youtubeapp.utiliti.Util;
 import com.example.youtubeapp.activitys.VideoPlayActivity;
 import com.example.youtubeapp.adapter.CommentYoutubeAdapter;
 import com.example.youtubeapp.api.ApiServicePlayList;

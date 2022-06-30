@@ -15,7 +15,9 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.youtubeapp.R;
-import com.example.youtubeapp.Util;
+import com.example.youtubeapp.utiliti.Util;
+import com.example.youtubeapp.model.infochannel.Channel;
+import com.example.youtubeapp.model.infochannel.Itemss;
 import com.example.youtubeapp.model.itemrecycleview.VideoItem;
 import com.example.youtubeapp.activitys.VideoPlayActivity;
 import com.example.youtubeapp.adapter.VideoYoutubeAdapter;
@@ -25,7 +27,6 @@ import com.example.youtubeapp.model.listvideohome.ListVideo;
 import com.example.youtubeapp.my_interface.IItemOnClickVideoListener;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -115,7 +116,7 @@ public class HomeFragment extends Fragment {
                         titleVideo = listItem.get(i).getSnippet().getTitle();
                         titleChannel = listItem.get(i).getSnippet().getChannelTitle();
                         idChannel = listItem.get(i).getSnippet().getChannelId();
-//                        callApiChannel(idChannel , i);
+
 
                         urlLogoChannel = "";
                         idVideo = listItem.get(i).getId();
@@ -127,6 +128,8 @@ public class HomeFragment extends Fragment {
                         double viewCount = Double.parseDouble(viewCountVideo);
                         viewCountVideo = Util.convertViewCount(viewCount);
 
+                        // Lấy ảnh logo channel vì json ko có
+                        callApiChannel(idChannel , Util.listVideoItem, i);
 
                         likeCountVideo = listItem.get(i).getStatistics().getLikeCount();
                         descVideo = listItem.get(i).getSnippet().getDescription();
@@ -134,12 +137,12 @@ public class HomeFragment extends Fragment {
 
 
                         Util.listVideoItem.add(new VideoItem(urlThumbnailVideo,
-                                urlLogooo, titleVideo, timeVideo,
+                                urlLogoChannel, titleVideo, timeVideo,
                                 titleChannel, viewCountVideo, idVideo,
                                 likeCountVideo, descVideo, idChannel, commentCount));
 //                        adapter.notifyItemInserted(i);
                     }
-                    Collections.shuffle(Util.listVideoItem);
+//                    Collections.shuffle(Util.listVideoItem);
                     adapter.notifyDataSetChanged();
 
                 }
@@ -166,33 +169,30 @@ public class HomeFragment extends Fragment {
         rvItemVideo.smoothScrollToPosition(0);
     }
 
-//
-//    String urlLogoo = "";
-//    private void callApiChannel(String id) {
-//        ApiServicePlayList.apiServicePlayList.infoChannel(
-//                "snippet",
-//                "contentDetails",
-//                "statistics",
-//                id,
-//                Util.API_KEY
-//        ).enqueue(new Callback<Channel>() {
-//            @Override
-//            public void onResponse(Call<Channel> call, Response<Channel> response) {
-////                Toast.makeText(VideoPlayActivity.this, "Call api", Toast.LENGTH_SHORT).show();
-//                Channel channel = response.body();
-//                String urlLogo = "";
-//                if (channel != null) {
-//                    ArrayList<Itemss> listItem = channel.getItems();
-//                    String urlLogooo = listItem.get(0).getSnippet().getThumbnails().getMedium().getUrl();
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Channel> call, Throwable t) {
-////                Toast.makeText(VideoPlayActivity.this,
-////                        "Call Api Error", Toast.LENGTH_SHORT).show();
-//                Log.d("ab", t.toString());
-//            }
-//        });
-//    }
+// Lấy ảnh logo Channel
+private void callApiChannel(String id, ArrayList<VideoItem> video, int pos) {
+    ApiServicePlayList.apiServicePlayList.infoChannel(
+            "snippet",
+            "contentDetails",
+            "statistics",
+            id,
+            Util.API_KEY
+    ).enqueue(new Callback<Channel>() {
+        @Override
+        public void onResponse(Call<Channel> call, Response<Channel> response) {
+            ArrayList<Itemss> listItem = new ArrayList<>();
+            Channel channel = response.body();
+            if (channel != null) {
+                listItem = channel.getItems();
+                String urlLogooo = listItem.get(0).getSnippet().getThumbnails().getHigh().getUrl();
+                video.get(pos).setUrlLogoChannel(urlLogooo);
+                adapter.notifyDataSetChanged();
+            }
+        }
+        @Override
+        public void onFailure(Call<Channel> call, Throwable t) {
+            Log.d("ab", t.toString());
+        }
+    });
+}
 }

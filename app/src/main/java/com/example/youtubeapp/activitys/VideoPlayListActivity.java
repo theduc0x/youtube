@@ -1,26 +1,31 @@
 package com.example.youtubeapp.activitys;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.youtubeapp.R;
-import com.example.youtubeapp.Util;
+import com.example.youtubeapp.utiliti.Util;
 import com.example.youtubeapp.adapter.PlayListItemVideoChannelAdapter;
 import com.example.youtubeapp.api.ApiServicePlayList;
 import com.example.youtubeapp.model.detailvideo.DetailVideo;
 import com.example.youtubeapp.model.detailvideo.ItemVideo;
 import com.example.youtubeapp.model.itemrecycleview.ItemVideoInPlayList;
 import com.example.youtubeapp.model.itemrecycleview.PlayListItem;
-import com.example.youtubeapp.model.itemrecycleview.VideoChannelItem;
+import com.example.youtubeapp.model.itemrecycleview.VideoItem;
 import com.example.youtubeapp.model.playlistitem.Items;
 import com.example.youtubeapp.model.playlistitem.PlayListItemVideo;
+import com.example.youtubeapp.my_interface.IItemOnClickVideoListener;
 import com.example.youtubeapp.my_interface.PaginationScrollListener;
 
 import java.util.ArrayList;
@@ -37,6 +42,9 @@ public class VideoPlayListActivity extends AppCompatActivity {
     PlayListItemVideoChannelAdapter adapter;
     ArrayList<ItemVideoInPlayList> listItems;
     ArrayList<ItemVideoInPlayList> listAdd;
+    Toolbar tbPlayListVideo;
+    ImageButton ivBack;
+    LinearLayout llOpenVideo;
 
     private String pageToken = "";
     private boolean isLoading;
@@ -51,12 +59,27 @@ public class VideoPlayListActivity extends AppCompatActivity {
         getData();
         initView();
         setData();
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         listItems = new ArrayList<>();
 
         LinearLayoutManager linearLayoutManager =
                 new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         rvListVideo.setLayoutManager(linearLayoutManager);
-        adapter = new PlayListItemVideoChannelAdapter();
+        adapter = new PlayListItemVideoChannelAdapter(new IItemOnClickVideoListener() {
+            @Override
+            public void OnClickItemVideo(VideoItem item) {
+                Intent toPlayVideo = new Intent(VideoPlayListActivity.this, VideoPlayActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(Util.BUNDLE_EXTRA_OBJECT_ITEM_VIDEO, item);
+                toPlayVideo.putExtras(bundle);
+                startActivity(toPlayVideo);
+            }
+        });
         rvListVideo.setAdapter(adapter);
         setFirstData();
 
@@ -102,12 +125,20 @@ public class VideoPlayListActivity extends AppCompatActivity {
         },1000);
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
     private void initView() {
         tvTitlePlayListTB = findViewById(R.id.tv_title_play_list_video);
         tvTitlePlayList = findViewById(R.id.title_playlist_detail);
         tvTitleChannel = findViewById(R.id.tv_title_channel_detail);
         tvVideoCount = findViewById(R.id.tv_view_count_detail);
         rvListVideo = findViewById(R.id.rv_item_video_playList);
+        tbPlayListVideo = findViewById(R.id.tb_nav_play_list_video);
+        ivBack = findViewById(R.id.ib_back_playlist);
+        llOpenVideo = findViewById(R.id.ll_open_video_play_from_listplay);
     }
     private void setData() {
         tvTitlePlayListTB.setText(titlePlayList);
@@ -141,7 +172,8 @@ public class VideoPlayListActivity extends AppCompatActivity {
             public void onResponse(Call<PlayListItemVideo> call,
                                    Response<PlayListItemVideo> response) {
                 String urlThumbnails = "", titleChannel = "", titleVideo = "",
-                        idVideo = "", viewCount = "", publishAt = "";
+                        idVideo = "", viewCount = "", publishAt = "",
+                        privacyStatus = "";
                 PlayListItemVideo item = response.body();
                 if (item != null) {
 
@@ -155,6 +187,7 @@ public class VideoPlayListActivity extends AppCompatActivity {
                     ArrayList<Items> listItem = item.getItems();
                     for (int i = 0; i < listItem.size(); i++) {
                         idVideo = listItem.get(i).getSnippet().getResourceId().getVideoId();
+                        privacyStatus = listItem.get(i).getStatus().getPrivacyStatus();
 
                         if (listItem.get(i).getSnippet().getThumbnails().getMaxres() != null) {
                             urlThumbnails = listItem.get(i).getSnippet()
@@ -162,18 +195,19 @@ public class VideoPlayListActivity extends AppCompatActivity {
                         } else if (listItem.get(i).getSnippet().getThumbnails().getStandard() != null) {
                             urlThumbnails = listItem.get(i).getSnippet()
                                     .getThumbnails().getStandard().getUrl();
-                        }else {
+                        }else if (listItem.get(i).getSnippet().getThumbnails().getHigh() != null){
                             urlThumbnails = listItem.get(i).getSnippet()
                                     .getThumbnails().getHigh().getUrl();
+                        } else {
+                            urlThumbnails = "https://st.quantrimang.com/photos/image/2020/07/30/Hinh-Nen-Trang-10.jpg";
                         }
-                        callApiViewCountVideo(idVideo, listAdd, i);
-
+                            callApiViewCountVideo(idVideo, listAdd, i);
                         titleChannel = listItem.get(i).getSnippet().getChannelTitle();
                         titleVideo = listItem.get(i).getSnippet().getTitle();
                         publishAt = listItem.get(i).getSnippet().getPublishedAt();
 
-                        listAdd.add(new ItemVideoInPlayList(urlThumbnails, titleVideo,
-                                titleChannel, "",publishAt, idVideo));
+                            listAdd.add(new ItemVideoInPlayList(urlThumbnails, titleVideo,
+                                    titleChannel, "",publishAt, idVideo, privacyStatus));
                     }
                     if (listItems == null) {
                         listItems = listAdd;
@@ -205,15 +239,15 @@ public class VideoPlayListActivity extends AppCompatActivity {
         ).enqueue(new Callback<DetailVideo>() {
             @Override
             public void onResponse(Call<DetailVideo> call, Response<DetailVideo> response) {
-                String viewCount = "";
-                DetailVideo video = response.body();
-                if (video != null) {
-                    ArrayList<ItemVideo> listItem = video.getItems();
-                    for (int i = 0; i <listItem.size(); i++ ) {
-                        viewCount = listItem.get(0).getStatistics().getViewCount();
-                        listItemV.get(pos).setViewCountVideo(viewCount);
-                        adapter.notifyDataSetChanged();
-                    }
+                    String viewCount = "";
+                    DetailVideo video = response.body();
+                    if (video != null) {
+                        ArrayList<ItemVideo> listItem = video.getItems();
+                        for (int i = 0; i <listItem.size(); i++ ) {
+                            viewCount = listItem.get(0).getStatistics().getViewCount();
+                            listItemV.get(pos).setViewCountVideo(viewCount);
+                            adapter.notifyDataSetChanged();
+                        }
                 }
             }
 

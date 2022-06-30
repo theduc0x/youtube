@@ -2,6 +2,7 @@ package com.example.youtubeapp.api;
 
 import com.example.youtubeapp.model.detailvideo.DetailVideo;
 import com.example.youtubeapp.model.infochannel.Channel;
+import com.example.youtubeapp.model.listchannelsfromchannel.ChannelsList;
 import com.example.youtubeapp.model.listcomment.Comment;
 import com.example.youtubeapp.model.listplaylistvideochannel.PlayList;
 import com.example.youtubeapp.model.listreplies.Replies;
@@ -139,4 +140,10 @@ public interface ApiServicePlayList {
             @Query("key") String key,
             @Query("maxResults") String maxResults);
 
+    // list dữ liệu mà kênh muốn giới thiệu, có list channels
+    @GET("youtube/v3/channelSections")
+    Call<ChannelsList> channelsList(
+            @Query("part") String part ,
+            @Query("channelId") String channelId,
+            @Query("key") String key);
 }

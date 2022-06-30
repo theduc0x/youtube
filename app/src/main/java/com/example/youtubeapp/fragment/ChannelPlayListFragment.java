@@ -15,11 +15,9 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.youtubeapp.R;
-import com.example.youtubeapp.Util;
-import com.example.youtubeapp.activitys.ChannelActivity;
+import com.example.youtubeapp.utiliti.Util;
 import com.example.youtubeapp.activitys.VideoPlayListActivity;
 import com.example.youtubeapp.adapter.PlayListAdapter;
-import com.example.youtubeapp.adapter.VideoChannelAdapter;
 import com.example.youtubeapp.api.ApiServicePlayList;
 import com.example.youtubeapp.model.itemrecycleview.PlayListItem;
 import com.example.youtubeapp.model.listplaylistvideochannel.Items;

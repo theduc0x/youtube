@@ -20,7 +20,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.youtubeapp.R;
-import com.example.youtubeapp.Util;
+import com.example.youtubeapp.utiliti.Util;
 import com.example.youtubeapp.activitys.ChannelActivity;
 import com.example.youtubeapp.api.ApiServicePlayList;
 import com.example.youtubeapp.model.infochannel.Channel;
@@ -178,7 +178,7 @@ public class VideoContainDataFragment extends Fragment {
             titleVideo = itemVideo.getTvTitleVideo();
             titleChannel = itemVideo.getTvTitleChannel();
             viewCount = itemVideo.getViewCountVideo();
-            timePublic = itemVideo.getTvTimeVideo();
+            timePublic = itemVideo.getPublishAt();
             dateDayDiff = Util.getTime(timePublic);
             likeCount = itemVideo.getLikeCountVideo();
             descVideo = itemVideo.getDescVideo();

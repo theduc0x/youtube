@@ -10,7 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 
 import com.example.youtubeapp.R;
-import com.example.youtubeapp.Util;
+import com.example.youtubeapp.utiliti.Util;
 import com.example.youtubeapp.fragment.VideoContainDataFragment;
 import com.example.youtubeapp.fragment.VideoContainYoutubePlayFragment;
 import com.example.youtubeapp.model.itemrecycleview.VideoItem;
@@ -46,7 +46,7 @@ public class VideoPlayActivity extends AppCompatActivity {
 //        transaction.addToBackStack("abc123");
 //        transaction.commit();
 //    }
-
+    // add fragment chứa dữ liệu như desc, comment, video liên quan,
     private void addFragmentMain() {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
