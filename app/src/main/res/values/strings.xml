@@ -31,4 +31,16 @@
     <string name="tv_test_content_desc">TinCoder Android Java là một kênh YouTube chia sẻ những kinh nghiệm của bản thân mình trong lĩnh vực lập trình ứng dụng Android - với ngôn ngữ Java Bằng những kinh nghiệm thực tế khi đi làm, đã từng tham gia nhiều dự án Outsourcing cho cả khách hàng trong nước và ngoài nước, mình rất muốn chia sẻ và giới thiệu những kiến thức của mình về lập trình đến tất cả mọi người. Rất mong mọi người ủng hộ và góp ý cho mình bằng cách Subscribe kênh YouTube của mình, like, share, comment những video mình chia sẻ. Cám ơn tất cả mọi người !!! Thông tin liên hệ: mixproduction29932@gmail.com</string>
     <string name="tv_link_about">Links</string>
     <string name="tv_details_about">Details</string>
+    <string name="tv_link_youtube_test">https://www.youtube.com/c/Optimus96/about</string>
+    <string name="tv_test_location">Việt Nam</string>
+    <string name="tv_published_channel">Joined</string>
+    <string name="tv_link_url_youtube_1">https://www.youtube.com/channel/</string>
+    <string name="tv_link_url_youtube_2">https://www.youtube.com/c/</string>
+    <string name="tv_title_view">views</string>
+    <string name="bt_sort_by">SORT BY</string>
+    <string name="tv_play_list">PHÁT</string>
+    <string name="tv_play_list_random">PHÁT NGẪU NHIÊN</string>
+    <string name="tv_view">views •</string>
+    <string name="title_voice">Voice</string>
+    <string name="title_search">Search</string>
 </resources>

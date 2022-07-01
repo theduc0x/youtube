@@ -9,7 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="@dimen/mb_50dp"
         android:orientation="vertical">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -50,17 +50,15 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginStart="@dimen/ms_10dp"
+            android:layout_marginEnd="@dimen/me_10dp"
             android:orientation="vertical">
-
-
 
     <TextView
         android:id="@+id/title_playlist_detail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="18dp"
+        android:textSize="@dimen/textSize_18dp"
         android:textColor="@color/black"
         android:textStyle="bold"
         android:text="PHỎNG VẤN BA LÁP BA XÀM"/>
@@ -74,7 +72,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/mt_10dp"
         android:orientation="horizontal">
 
         <ImageView
@@ -85,20 +83,20 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
+            android:layout_marginStart="@dimen/ms_30dp"
             android:src="@drawable/baseline_download_black_24"/>
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
+            android:layout_marginStart="@dimen/ms_30dp"
             android:src="@drawable/baseline_share_black_24"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginTop="@dimen/mt_10dp"
+        android:layout_marginBottom="@dimen/mb_10dp"
         android:orientation="horizontal">
         <LinearLayout
             android:layout_width="0dp"
@@ -116,7 +114,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
-                android:text="PHÁT"/>
+                android:text="@string/tv_play_list"/>
 
         </LinearLayout>
 
@@ -126,7 +124,7 @@
             android:background="@color/white"
             android:layout_weight="1"
             android:gravity="center"
-            android:layout_marginLeft="40dp"
+            android:layout_marginStart="@dimen/ms_40dp"
             android:orientation="horizontal">
 
             <ImageView
@@ -138,7 +136,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
-                android:text="PHÁT NGẪU NHIÊN"/>
+                android:text="@string/tv_play_list_random"/>
 
         </LinearLayout>
 

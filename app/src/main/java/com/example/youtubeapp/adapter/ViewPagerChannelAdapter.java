@@ -53,7 +53,9 @@ public class ViewPagerChannelAdapter extends FragmentStateAdapter {
                 channelChannelsFragment.setArguments(bundle);
                 return channelChannelsFragment;
             case 5 :
-                return new ChannelAboutFragment();
+                ChannelAboutFragment channelAboutFragment = new ChannelAboutFragment();
+                channelAboutFragment.setArguments(bundle);
+                return channelAboutFragment;
             default:
                 return new ChannelHomeFragment();
         }

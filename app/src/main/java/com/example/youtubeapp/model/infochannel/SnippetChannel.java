@@ -4,10 +4,19 @@ package com.example.youtubeapp.model.infochannel;
 public class SnippetChannel {
     private String title;
     private String description;
+    private String customUrl;
     private String publishedAt;
     private ThumbnailChannel thumbnails;
     private LocalizedChannel localized;
     private String country;
+
+    public String getCustomUrl() {
+        return customUrl;
+    }
+
+    public void setCustomUrl(String customUrl) {
+        this.customUrl = customUrl;
+    }
 
     public String getTitle() {
         return title;

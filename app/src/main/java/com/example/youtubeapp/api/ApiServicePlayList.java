@@ -40,61 +40,61 @@ public interface ApiServicePlayList {
     // List video
     @GET("youtube/v3/videos")
     Call<ListVideo> listVideoNext(
-            @Query("pageToken") String pageToken ,
-            @Query("part") String partSnippet ,
-            @Query("part") String partStatic ,
-            @Query("chart") String chart ,
-            @Query("locale") String locale ,
-            @Query("regionCode") String regionCode ,
+            @Query("pageToken") String pageToken,
+            @Query("part") String partSnippet,
+            @Query("part") String partStatic,
+            @Query("chart") String chart,
+            @Query("locale") String locale,
+            @Query("regionCode") String regionCode,
             @Query("key") String key,
-            @Query("maxResults" ) String maxResults);
+            @Query("maxResults") String maxResults);
 
     // detail Video
     @GET("youtube/v3/videos")
     Call<DetailVideo> detailVideo(
-            @Query("part") String partSnippet ,
-            @Query("part") String partStatic ,
-            @Query("id") String idVideo ,
+            @Query("part") String partSnippet,
+            @Query("part") String partStatic,
+            @Query("id") String idVideo,
             @Query("key") String key);
 
     // Channel
     @GET("youtube/v3/channels")
     Call<Channel> infoChannel(
-            @Query("part") String partSnippet ,
-            @Query("part") String partContent ,
-            @Query("part") String partStatic ,
-            @Query("id") String idChannel ,
+            @Query("part") String partSnippet,
+            @Query("part") String partContent,
+            @Query("part") String partStatic,
+            @Query("id") String idChannel,
             @Query("key") String key);
 
     // Full thông tin channel
     @GET("youtube/v3/channels")
     Call<Channel> infoChannelFull(
-            @Query("part") String partContent ,
-            @Query("part") String partSnippet ,
-            @Query("part") String partStatic ,
+            @Query("part") String partContent,
+            @Query("part") String partSnippet,
+            @Query("part") String partStatic,
             @Query("part") String partTopicDetails,
-            @Query("part") String partBrand ,
-            @Query("id") String idChannel ,
+            @Query("part") String partBrand,
+            @Query("id") String idChannel,
             @Query("key") String key);
 
     // Top comment
     @GET("youtube/v3/commentThreads")
     Call<Comment> comment(
-            @Query("pageToken") String pageToken ,
-            @Query("part") String partSnippet ,
+            @Query("pageToken") String pageToken,
+            @Query("part") String partSnippet,
             @Query("part") String partReplies,
-            @Query("order") String order ,
-            @Query("part") String id ,
+            @Query("order") String order,
+            @Query("part") String id,
             @Query("textFormat") String planText,
-            @Query("videoId") String videoId ,
+            @Query("videoId") String videoId,
             @Query("key") String key,
-            @Query("maxResults" ) String maxResults);
+            @Query("maxResults") String maxResults);
 
     // Replies
     @GET("youtube/v3/comments")
     Call<Replies> replies(
-            @Query("pageToken") String pageToken ,
-            @Query("part") String partSnippet ,
+            @Query("pageToken") String pageToken,
+            @Query("part") String partSnippet,
             @Query("maxResults") String maxResults,
             @Query("parentId") String parentId,
             @Query("textFormat") String textFomat,
@@ -103,8 +103,8 @@ public interface ApiServicePlayList {
     // Related Video Id
     @GET("youtube/v3/search")
     Call<RelatedVideo> relatedCall(
-            @Query("pageToken") String pageToken ,
-            @Query("part") String partSnippet ,
+            @Query("pageToken") String pageToken,
+            @Query("part") String partSnippet,
             @Query("relatedToVideoId") String relatedId,
             @Query("type") String typeVideo,
             @Query("key") String key,
@@ -113,9 +113,9 @@ public interface ApiServicePlayList {
     // Video mới nhất update từ channel
     @GET("youtube/v3/search")
     Call<RelatedVideo> videoUpdateNews(
-            @Query("pageToken") String pageToken ,
-            @Query("part") String partSnippet ,
-            @Query("part") String partId ,
+            @Query("pageToken") String pageToken,
+            @Query("part") String partSnippet,
+            @Query("part") String partId,
             @Query("channelId") String channelId,
             @Query("order") String order,
             @Query("type") String typeVideo,
@@ -125,8 +125,8 @@ public interface ApiServicePlayList {
     // PlayList từ id channel
     @GET("youtube/v3/playlists")
     Call<PlayList> playListChannel(
-            @Query("pageToken") String pageToken ,
-            @Query("part") String part ,
+            @Query("pageToken") String pageToken,
+            @Query("part") String part,
             @Query("channelId") String channelId,
             @Query("key") String key,
             @Query("maxResults") String maxResults);
@@ -134,8 +134,8 @@ public interface ApiServicePlayList {
     // ItemVideo trong PlayList ở trên
     @GET("youtube/v3/playlistItems")
     Call<PlayListItemVideo> listInPlayList(
-            @Query("pageToken") String pageToken ,
-            @Query("part") String part ,
+            @Query("pageToken") String pageToken,
+            @Query("part") String part,
             @Query("playlistId") String playListId,
             @Query("key") String key,
             @Query("maxResults") String maxResults);
@@ -143,7 +143,8 @@ public interface ApiServicePlayList {
     // list dữ liệu mà kênh muốn giới thiệu, có list channels
     @GET("youtube/v3/channelSections")
     Call<ChannelsList> channelsList(
-            @Query("part") String part ,
+            @Query("part") String part,
             @Query("channelId") String channelId,
             @Query("key") String key);
+
 }

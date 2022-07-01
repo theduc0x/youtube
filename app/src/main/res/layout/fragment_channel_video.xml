@@ -23,8 +23,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:orientation="vertical">
 
@@ -41,8 +39,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:background="@drawable/custom_button_transparent"
-                    android:textSize="14dp"
-                    android:text="SORT BY"/>
+                    android:textSize="@dimen/textSize_14dp"
+                    android:text="@string/bt_sort_by"/>
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"

@@ -4,15 +4,24 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.youtubeapp.R;
+import com.example.youtubeapp.fragment.ExploreFragment;
+import com.example.youtubeapp.fragment.HomeFragment;
+import com.example.youtubeapp.fragment.LibraryFragment;
+import com.example.youtubeapp.fragment.NotificationFragment;
+import com.example.youtubeapp.fragment.SubcriptionFragment;
 import com.example.youtubeapp.utiliti.Util;
 import com.example.youtubeapp.adapter.ViewPagerChannelAdapter;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -23,6 +32,7 @@ public class ChannelActivity extends AppCompatActivity {
     String idChannel = "", titleChannel = "";
     TextView tvTitleChannel;
     ImageButton ibBack;
+    BottomNavigationView bnvChannel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +46,7 @@ public class ChannelActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+        setBnvChannel();
     }
 
     private void initView() {
@@ -43,6 +54,7 @@ public class ChannelActivity extends AppCompatActivity {
         vp2Content = findViewById(R.id.vp2_content);
         tvTitleChannel = findViewById(R.id.tv_title_channel_nav);
         ibBack = findViewById(R.id.ib_back_home_channel);
+        bnvChannel = findViewById(R.id.bnv_fragment_channel);
     }
 
     private void setTabLayout() {
@@ -80,5 +92,33 @@ public class ChannelActivity extends AppCompatActivity {
         titleChannel = getData.getStringExtra(Util.EXTRA_TITLE_CHANNEL_TO_CHANNEL);
         tvTitleChannel.setText(titleChannel);
         adapter.setData(idChannel);
+    }
+
+    private void setBnvChannel() {
+        bnvChannel.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @SuppressLint("NonConstantResourceId")
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.mn_home:
+                        getSupportFragmentManager().popBackStack("alo123", 0);
+                        break;
+                    case R.id.mn_explore:
+
+                        break;
+                    case R.id.mn_subcription:
+
+                        break;
+                    case R.id.mn_notification:
+
+                        break;
+                    case R.id.mn_library:
+
+                        break;
+                }
+                return false;
+
+            }
+        });
     }
 }

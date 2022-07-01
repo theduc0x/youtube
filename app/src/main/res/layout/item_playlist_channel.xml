@@ -4,7 +4,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="10dp"
+    android:paddingLeft="@dimen/padding_10dp"
+    android:paddingRight="@dimen/padding_10dp"
+    android:paddingTop="@dimen/padding_5dp"
+    android:paddingBottom="@dimen/padding_5dp"
+    android:background="@color/custom_item_video_click"
     android:orientation="horizontal"
     android:weightSum="10">
 
@@ -66,6 +70,8 @@
                 android:id="@+id/tv_title_channel_in_playlist"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:text="trấn thành town"/>
 
             <TextView

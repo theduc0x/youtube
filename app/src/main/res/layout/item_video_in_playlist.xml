@@ -4,7 +4,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="10dp"
+    android:paddingLeft="@dimen/padding_10dp"
+    android:paddingRight="@dimen/padding_10dp"
+    android:paddingTop="@dimen/padding_5dp"
+    android:paddingBottom="@dimen/padding_5dp"
+    android:background="@color/custom_item_video_click"
     android:orientation="horizontal"
     android:weightSum="10">
 
@@ -19,7 +23,7 @@
         android:layout_width="0dp"
         android:layout_height="85dp"
         android:layout_weight="5.5"
-        android:layout_marginLeft="5dp"
+        android:layout_marginStart="@dimen/ms_5dp"
         android:orientation="vertical">
 
         <TextView
@@ -29,7 +33,7 @@
             android:maxLines="2"
             android:ellipsize="end"
             android:textAllCaps="true"
-            android:textSize="14dp"
+            android:textSize="@dimen/textSize_14dp"
             android:textColor="@color/black" />
 
         <TextView
@@ -51,7 +55,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=" views • "/>
+                android:text="@string/tv_view"/>
 
             <TextView
                 android:id="@+id/tv_time_diff_date_detail"
